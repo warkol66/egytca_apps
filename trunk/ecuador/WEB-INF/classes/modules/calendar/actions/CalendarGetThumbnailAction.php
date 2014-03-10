@@ -1,14 +1,14 @@
 <?php
 
 //TODO: Probar
-class CalendarGetThumbnailAction extends BaseEditAction {
+class CalendarGetThumbnailAction extends BaseSelectAction {
 
 	function __construct() {
 		parent::__construct('CalendarEvent');
 	}
 	
-	protected function postEdit(){
-		parent::postEdit();
+	protected function postSelect(){
+		parent::postSelect();
 		
 		$module = "Calendar";
 		$this->smarty->assign("module",$module);

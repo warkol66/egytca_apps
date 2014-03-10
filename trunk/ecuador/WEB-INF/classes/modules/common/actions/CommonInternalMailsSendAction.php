@@ -8,14 +8,14 @@
 * @package common
 */
 
-class CommonInternalMailsSendAction extends BaseEditAction {
+class CommonInternalMailsSendAction extends BaseSelectAction {
 	
 	public function __construct() {
 		parent::__construct('InternalMail');
 	}
 	
-	protected function postEdit() {
-		parent::postEdit();		
+	protected function postSelect() {
+		parent::postSelect();		
 		$this->template->template = 'TemplateAjax.tpl';
 		
 		if(isset($_GET['error']))

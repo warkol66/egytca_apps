@@ -1,13 +1,13 @@
 <?php
 
-class BlogCommentsEditAction extends BaseEditAction {
+class BlogCommentsEditAction extends BaseSelectAction {
 
 	function __construct() {
 		parent::__construct('BlogComment');
 	}
 
-	protected function postEdit() {
-		parent::postEdit();
+	protected function postSelect() {
+		parent::postSelect();
 
 		$this->smarty->assign("module",$module);
 

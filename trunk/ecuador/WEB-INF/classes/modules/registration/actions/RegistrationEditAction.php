@@ -1,6 +1,6 @@
 <?php
 
-class RegistrationEditAction extends BaseEditAction {
+class RegistrationEditAction extends BaseSelectAction {
 
 
 	/**
@@ -15,12 +15,12 @@ class RegistrationEditAction extends BaseEditAction {
 
 	}
 
-	protected function preEdit(){
+	protected function preSelect(){
 		$this->template->template = 'TemplateJQuery.tpl';
 	}
 
-	protected function postEdit() {
-		parent::postEdit();
+	protected function postSelect() {
+		parent::postSelect();
 
 		$this->smarty->assign("countries", RegistrationUserQuery::getCountries());
 

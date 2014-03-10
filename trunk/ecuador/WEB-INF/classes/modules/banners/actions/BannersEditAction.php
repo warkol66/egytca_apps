@@ -5,14 +5,14 @@
  * Muestra el formulario de edición de banners, si existe, muestra sus datos.
  * @package banners
  */
-class BannersEditAction extends BaseEditAction {
+class BannersEditAction extends BaseSelectAction {
 	
 	function __construct() {
 		parent::__construct('Banner');
 	}
 	
-	protected function postEdit(){
-		parent::postEdit();
+	protected function postSelect(){
+		parent::postSelect();
 		
 		$this->smarty->assign("module","Banners");
 		

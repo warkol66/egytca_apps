@@ -4,14 +4,14 @@
 * 
 */
 
-class CommonMenuItemsShowAction extends BaseEditAction {
+class CommonMenuItemsShowAction extends BaseSelectAction {
 	
 	function __construct() {
 		parent::__construct('MenuItem');
 	}
 
-	protected function postEdit() {
-		parent::postEdit();
+	protected function postSelect() {
+		parent::postSelect();
 		
 		$module = "Common";
 		$this->smarty->assign("module",$module);

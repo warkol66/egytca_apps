@@ -5,14 +5,14 @@
  * Muestra un formulario para guardar los pesos relativos de los banners en la zona
  * @package banners
  */
-class BannersOrderByZoneAction extends BaseEditAction {
+class BannersOrderByZoneAction extends BaseSelectAction {
 	
 	function __construct() {
 		parent::__construct('BannerZone');
 	}
 	
-	protected function postEdit(){
-		parent::postEdit();
+	protected function postSelect(){
+		parent::postSelect();
 		
 		$this->smarty->assign("module","Banners");
 		$this->smarty->assign("section","Zones");

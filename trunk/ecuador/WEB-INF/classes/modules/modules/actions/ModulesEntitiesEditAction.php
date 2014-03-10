@@ -1,14 +1,14 @@
 <?php
 
-class ModulesEntitiesEditAction extends BaseEditAction {
+class ModulesEntitiesEditAction extends BaseSelectAction {
 	
 	function __construct() {
 		parent::__construct('ModuleEntity');
 		
 	}
 	
-	protected function postEdit(){
-		parent::postEdit();
+	protected function postSelect(){
+		parent::postSelect();
 		
 		$module = "Modules";
 		$this->smarty->assign("module",$module);

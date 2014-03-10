@@ -15,7 +15,7 @@ require_once("Smarty_config.inc.php");
 
 require_once("BaseQuery.php");
 require_once("BaseListAction.php");
-require_once("BaseEditAction.php");
+require_once("BaseSelectAction.php");
 require_once("BaseDoEditAction.php");
 require_once("BaseDoDeleteAction.php");
 

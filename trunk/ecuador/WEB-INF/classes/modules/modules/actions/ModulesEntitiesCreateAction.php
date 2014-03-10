@@ -1,6 +1,6 @@
 <?php
 
-class ModulesEntitiesCreateAction extends BaseEditAction {
+class ModulesEntitiesCreateAction extends BaseSelectAction {
 	
 	//este se va a usar como Edit y hay que crear otro que extienda DoEdit
 	

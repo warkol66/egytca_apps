@@ -1,13 +1,13 @@
 <?php
 
-class CalendarMediasEditAction extends BaseEditAction {
+class CalendarMediasEditAction extends BaseSelectAction {
 	
 	function __construct() {
 		parent::__construct('CalendarMedia');
 	}
 
-	protected function postEdit() {
-		parent::postEdit();
+	protected function postSelect() {
+		parent::postSelect();
 		
 		$module = "Calendar";
 		$this->smarty->assign("module",$module);

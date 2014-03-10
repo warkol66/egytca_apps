@@ -1,13 +1,13 @@
 <?php
 
-class CommonSchedulesSubscriptionsEditAction extends BaseEditAction {
+class CommonSchedulesSubscriptionsEditAction extends BaseSelectAction {
 	
 	function __construct() {
 		parent::__construct('ScheduleSubscription');
 	}
 
-	protected function postEdit() {
-		parent::postEdit();
+	protected function postSelect() {
+		parent::postSelect();
 		
 		$module = "Common";
 		$this->smarty->assign("module",$module);

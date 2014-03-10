@@ -1,18 +1,18 @@
 <?php
 
-class CalendarViewXAction extends BaseEditAction {
+class CalendarViewXAction extends BaseSelectAction {
 	
 	function __construct() {
 		parent::__construct('CalendarEvent');
 	}
 	
-	protected function preEdit() {
-		parent::preEdit();
+	protected function preSelect() {
+		parent::preSelect();
 
 	}
 
-	protected function postEdit() {
-		parent::postEdit();
+	protected function postSelect() {
+		parent::postSelect();
 		
 		$this->template->template = 'TemplateAjax.tpl';
 		

@@ -184,7 +184,7 @@ class NewsArticlesSearchAction extends BaseAction {
 
 			$smarty->assign("url",$url);		
 		
-		}*/
+		}
 		
 		if ($_REQUEST["rss"]=="1") {
 			$this->template->template = "TemplatePlain.tpl";

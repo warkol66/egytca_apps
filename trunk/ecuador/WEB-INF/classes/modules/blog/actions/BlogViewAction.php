@@ -1,13 +1,13 @@
 <?php
 
-class BlogViewAction extends BaseEditAction {
+class BlogViewAction extends BaseSelectAction {
 	
 	function __construct() {
 		parent::__construct('BlogEntry');
 	}
 	
-	protected function preEdit() {
-		parent::preEdit();
+	protected function preSelect() {
+		parent::preSelect();
 		
 		if(isset($_GET["url"])){
 			$entry = BlogEntryQuery::create()->findOneByUrl($_GET["url"]);
@@ -18,8 +18,8 @@ class BlogViewAction extends BaseEditAction {
 		}
 	}
 
-	protected function postEdit() {
-		parent::postEdit();
+	protected function postSelect() {
+		parent::postSelect();
 		
 		$module = "Blog";
 		$this->smarty->assign("module",$module);

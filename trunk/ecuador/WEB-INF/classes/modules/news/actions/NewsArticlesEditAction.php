@@ -1,14 +1,14 @@
 <?php
 
-class NewsArticlesEditAction extends BaseEditAction {
+class NewsArticlesEditAction extends BaseSelectAction {
 	
 	function __construct() {
 		parent::__construct('NewsArticle');
 		
 	}
 	
-	protected function postEdit(){
-		parent::postEdit();
+	protected function postSelect(){
+		parent::postSelect();
 		
 		$module = "News";
 		$this->smarty->assign("module",$module);
