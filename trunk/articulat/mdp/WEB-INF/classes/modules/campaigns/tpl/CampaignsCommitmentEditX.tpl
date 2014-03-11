@@ -1,8 +1,8 @@
 <script type="text/javascript" language="javascript" charset="utf-8">
-	$('form_edit_commitment').reset();
+	$j('#form_edit_commitment')[0].reset();
 	clearFormFieldsFormat('form_edit_commitment');
 
-	$('commitmentInfo').innerHTML = '';
+	$j('#commitmentInfo').html('');
 
 	var commitmentId = document.getElementById('commitmentId');
 	commitmentId.value = "|-$commitment->getId()-|";
@@ -23,9 +23,7 @@
 	achieved.checked = false;
 	|-/if-|
 
-	$('button_edit_commitment').value = "Guardar";
-	$('button_edit_commitment').title = "Guardar";
-
-	$('commitmentInfo').innerHTML = "";
+	$j('#button_edit_commitment').val("Guardar").attr('title', 'Guardar');
+	$j('#commitmentInfo').html("");
 
 </script>
