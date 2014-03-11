@@ -1,47 +1,60 @@
 <script type="text/javascript" >
+	var $j = jQuery.noConflict();
+
+	$j(document).ready(function($) {
+
+		$.datepicker.setDefaults($.datepicker.regional['es']);
+	    $( ".datepickerCommitment" ).datepicker({
+			dateFormat:"dd-mm-yy"
+		}).attr('readonly', 'readonly').css('backgroundColor', '#FFF');
+	});
+
 	function createCommitment(form) {
-		var fields = Form.serialize(form);
-		var myAjax = new Ajax.Updater('operationInfo',
-					"Main.php?do=campaignsCommitmentDoEditX",
-					{
-						method: 'post',
-						parameters: { action: "campaignsCommitmentDoEditX"},
-						postBody: fields,
-						evalScripts: true
-					});
-		$('commitmentInfo').innerHTML = '<span class="inProgress">Procesando información</span>';
+		$j.ajax({
+			url: url,
+			data: $j(form).serialize(),
+			type: 'post',
+			success: function(data){
+				$j('#operationInfo').html(data);
+			}	
+		});
+		$j('#commitmentInfo').html('<span class="inProgress">Procesando información</span>');
 		return false;
 	}
-	function editCommitment(form) {
-		$('form_edit_commitment').reset();
+
+		
+	function clearCommitmentForm(){
+		$j('#form_edit_commitment')[0].reset();
 		clearFormFieldsFormat('form_edit_commitment');
-		$('form_edit_commitment').commitmentId.value = "";
-		if ($('validationFailureMessage'))
-			$('validationFailureMessage').hide();
-		$('commitmentInfo').innerHTML = '';
-		var fields = Form.serialize(form);
-		var myAjax = new Ajax.Updater('commitmentInfo',
-					"Main.php?do=campaignsCommitmentEditX",
-					{
-						method: 'post',
-						parameters: { action: "campaignsCommitmentEditX"},
-						postBody: fields,
-						evalScripts: true
-					});
-		$('commitmentInfo').innerHTML = '<span class="inProgress">Procesando información</span>';
+		$j('#commitmentId').val('');
+		$j('#validationFailureMessage').hide();
+		$j('#commitmentInfo').html('');
+	}
+
+	function editCommitment(form) {
+		clearCommitmentForm();
+		$j.ajax({
+			url: url,
+			data: $j(form).serialize(),
+			type: 'post',
+			success: function(data){
+				$j('#commitmentInfo').html(data);
+			}	
+		});
+		$j('#commitmentInfo').html('<span class="inProgress">Procesando información</span>');
 		return false;
 	}
+
 	function deleteCommitment(form) {
-		var fields = Form.serialize(form);
-		var myAjax = new Ajax.Updater('commitmentInfo',
-					"Main.php?do=campaignsCommitmentDoDeleteX",
-					{
-						method: 'post',
-						parameters: { action: "campaignsCommitmentDoDeleteX"},
-						postBody: fields,
-						evalScripts: true
-					});
-		$('commitmentInfo').innerHTML = '<span class="inProgress">Procesando información</span>';
+		$j.ajax({
+			url: url,
+			data: $j(form).serialize(),
+			type: 'post',
+			success: function(data){
+				$j('#commitmentInfo').html(data);
+			}	
+		});
+		$j('#commitmentInfo').html('<span class="inProgress">Procesando información</span>');
 		return false;
 	}
 </script>
@@ -58,8 +71,8 @@
 	</p>
 	<p> 
 		<label for="commitmentData[date]">Fecha</label> 
-		<input type="text" id="commitmentData_date" name="commitmentData[date]" class="dateValidation emptyValidation" value="" title="Fecha (Formato: dd-mm-yyyy)" |-javascript_onchange_validation_attribute idField="commitmentData_date"-| /> 
-	<img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('commitmentData[date]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-', 'fixed');" title="Seleccione la fecha"> &nbsp;&nbsp;|-validation_msg_box idField="commitmentData[date]"-|</p> 
+		<input name="commitmentData[date]" type="text" id="commitmentData_date" class="datepickerCommitment dateValidation emptyValidation" title="Fecha (Formato: dd-mm-yyyy)" |-javascript_onchange_validation_attribute idField="commitmentData_date"-| value="" size="12" /> 
+	<img src="images/calendar.png" width="16" height="15" border="0" title="Seleccione la fecha"> &nbsp;&nbsp;|-validation_msg_box idField="commitmentData[date]"-|</p> 
 	<p>    
 		<label for="commitmentData[achieved]">Cumplido</label>
 	    <input type="hidden" name="commitmentData[achieved]" value="0" />

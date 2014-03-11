@@ -1,10 +1,10 @@
 <script type="text/javascript" language="javascript" >
 |-if !$error-|
-	$('partieMsgField').innerHTML = '<span class="resultSuccess">Participante Agregado</span>';
+	$j('#partieMsgField').html('<span class="resultSuccess">Participante Agregado</span>');
 |-elseif $error eq 'duplicated'-|
-	$('partieMsgField').innerHTML = '<span class="resultFailure">El participante ya estaba asociado</span>';
+	$j('#partieMsgField').html('<span class="resultFailure">El participante ya estaba asociado</span>');
 |-else-|
-	$('partieMsgField').innerHTML = '<span class="resultFailure">Debe seleccionar de Usuarios o Actores existentes</span>';
+	$j('#partieMsgField').html('<span class="resultFailure">Debe seleccionar de Usuarios o Actores existentes</span>');
 |-/if-|
 </script>
 |-include file="CampaignsParticipantsInclude.tpl"-|
