@@ -18,6 +18,8 @@ class BaseListAction extends BaseAction {
 	protected $pager;
 	protected $page;
 	protected $perPage;
+	protected $forwardName = "success";
+	protected $forwardFailureName = "failure";
 
 	function __construct($entityClassName) {
 		if (empty($entityClassName))
@@ -67,10 +69,10 @@ class BaseListAction extends BaseAction {
 			$this->postList();
 
 			$this->smarty->assign(lcfirst($this->entityClassName) . "Coll", $this->results);
-			return $mapping->findForwardConfig('success');
+			return $mapping->findForwardConfig($this->forwardName);
 		}
 		else
-			return $mapping->findForwardConfig('failure');
+			return $mapping->findForwardConfig($this->forwardFailureName);
 
 	}
 
@@ -82,9 +84,11 @@ class BaseListAction extends BaseAction {
 	protected function preList() {
 
 		// Informacion de filtros
-		$this->filters = $_GET['filters'];
-		if (!empty($this->filters["perPage"]))
-			$this->perPage = $this->filters["perPage"];
+		if (!empty($_REQUEST["filters"]))
+			$this->filters = $_REQUEST["filters"];
+		if (isset($_REQUEST["page"]) && $_REQUEST["page"] > 0)
+			$this->params["page"] = $_REQUEST["page"];
+
 	}
 
 	/**

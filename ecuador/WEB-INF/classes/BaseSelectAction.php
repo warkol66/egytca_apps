@@ -18,6 +18,8 @@ class BaseSelectAction extends BaseAction {
 	protected $entity;
 	protected $ajaxTemplate;
 	protected $filters;
+	protected $forwardName = "success";
+	protected $forwardFailureName = "failure";
 	
 	/**
 	 * Constructor
@@ -58,7 +60,7 @@ class BaseSelectAction extends BaseAction {
 				throw $e; // Buscar una mejor forma de que falle AJAX
 			else {
 				$this->smarty->assign('message', $e->getMessage());
-				return $mapping->findForwardConfig('failure');
+				return $mapping->findForwardConfig($this->forwardFailureName);
 			}
 		}
 		
@@ -70,11 +72,11 @@ class BaseSelectAction extends BaseAction {
 				//Elijo la vista basado en si es o no un pedido por AJAX
 				if ($this->isAjax()) {
 					$this->smarty->assign('notValidId', 'true');
-					return $mapping->findForwardConfig('success');
+					return $mapping->findForwardConfig($this->forwardName);
 				}
 				else {
 					$this->smarty->assign('notValidId', 'true');
-					return $mapping->findForwardConfig('success');
+					return $mapping->findForwardConfig($this->forwardName);
 				}
 			}
 			
@@ -102,13 +104,24 @@ class BaseSelectAction extends BaseAction {
 	 * Acciones a ejecutar antes de obtener el objeto
 	 */
 	protected function preSelect() {
-		// default: do nothing
+
+		if (!empty($_REQUEST["filters"]))
+			$this->filters = $_REQUEST["filters"];
+		if (isset($_REQUEST["page"]) && $_REQUEST["page"] > 0)
+			$this->params["page"] = $_REQUEST["page"];
+
 	}
 	
 	/**
 	 * Acciones a ejecutar despues de obtener el objeto
 	 */
 	protected function postSelect() {
+
+		// Informacion para armar los links de paginador
+		$url = "Main.php?" . "do=" . lcfirst(substr_replace(get_class($this),'', strrpos(get_class($this), 'Action'), 6));
+		foreach ($this->filters as $key => $value)
+			$url .= "&filters[$key]=" . htmlentities(urlencode($value));
+		$this->smarty->assign("url",$url);
 		// Envio al template parametros de busqueda, mensajes, etc.
 		$this->smarty->assign("filters", $_GET["filters"]);
 		$this->smarty->assign("page", $_GET["page"]);

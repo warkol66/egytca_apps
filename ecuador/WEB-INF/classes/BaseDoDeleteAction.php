@@ -16,6 +16,8 @@ class BaseDoDeleteAction extends BaseAction {
 	protected $params;
 	protected $filters;
 	protected $page;
+	protected $forwardName = "success";
+	protected $forwardFailureName = "failure";
 	
 	function __construct($entityClassName) {
 		if (empty($entityClassName))
@@ -41,14 +43,14 @@ class BaseDoDeleteAction extends BaseAction {
 			// Acciones a ejecutar antes de eliminar el objeto
 			// Si el preDelete devuelve false, se retorna failure
 			if ($this->preDelete() === false)
-				return $this->addParamsAndFiltersToForwards($params, $this->filters, $mapping, 'failure');
+				return $this->addParamsAndFiltersToForwards($params, $this->filters, $mapping, $this->forwardFailureName);
 		} catch (Exception $e) {
 			//Elijo la vista basado en si es o no un pedido por AJAX
 			if ($this->isAjax()) {
 				throw $e; // Buscar una mejor forma de que falle AJAX
 			} else {
 				$this->smarty->assign('message', $e->getMessage());
-				return $this->addParamsAndFiltersToForwards($this->params, $this->filters, $mapping,'failure');
+				return $this->addParamsAndFiltersToForwards($this->params, $this->filters, $mapping, $this->forwardFailureName);
 			}
 		}
 		
@@ -61,7 +63,7 @@ class BaseDoDeleteAction extends BaseAction {
 					throw new Exception(); // Buscar una mejor forma de que falle AJAX
 				} else {
 					$this->smarty->assign('notValidId', 'true');
-					return $this->addParamsAndFiltersToForwards($this->params, $this->filters, $mapping,'success');
+					return $this->addParamsAndFiltersToForwards($this->params, $this->filters, $mapping, $this->forwardName);
 				}
 			}
 			
@@ -72,14 +74,14 @@ class BaseDoDeleteAction extends BaseAction {
 
 			// Acciones a ejecutar despues de eliminar el objeto
 			$this->postDelete();
-			return $this->addParamsAndFiltersToForwards($this->params, $this->filters, $mapping,'success');
+			return $this->addParamsAndFiltersToForwards($this->params, $this->filters, $mapping, $this->forwardName);
 		} catch (Exception $e) {
 			if (ConfigModule::get("global","showPropelExceptions")){
 				print_r($e->__toString());
 			}
 		}
 
-		return $this->addParamsAndFiltersToForwards($this->params, $this->filters, $mapping,'failure');
+		return $this->addParamsAndFiltersToForwards($this->params, $this->filters, $mapping, $this->forwardFailureName);
 	}
 	
 	/**
