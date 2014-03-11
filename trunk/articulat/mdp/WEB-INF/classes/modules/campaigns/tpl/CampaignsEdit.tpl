@@ -1,82 +1,113 @@
 |-if !$notValidId-|
 |-if !$report-|
 |-include file="CommonAutocompleterInclude.tpl"-|
+<link rel="stylesheet" media="all" type="text/css" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 <script type="text/javascript" src="scripts/lightbox.js"></script>
+<script src="scripts/jquery/jquery.min.js" charset="utf-8"></script>
+<script src="scripts/jquery/jquery-ui-1.10.3.custom.min.js" charset="utf-8"></script>
+<script src="scripts/jquery/jquery.ui.datepicker-es.js" language="JavaScript" type="text/javascript"></script>
+<script type="text/javascript" src="scripts/jquery/fancyapps/source/jquery.fancybox.js?v=2.1.5"></script>
 <script type="text/javascript" language="javascript" charset="utf-8">
-function addParticipantToCampaign(form) {
-	var fields = Form.serialize(form);
-	var myAjax = new Ajax.Updater(
-				{success: 'participantsList'},
-				url,
-				{
-					method: 'post',
-					postBody: fields,
-					evalScripts: true
-				});
-	$('partieMsgField').innerHTML = '<span class="inProgress">agregando participante a campaña...</span>';
-	return true;
-}
-function deleteParticipantFromCampaign(form){
-	var fields = Form.serialize(form);
-	var myAjax = new Ajax.Updater(
-				{success: 'participantsList'},
-				url,
-				{
-					method: 'post',
-					postBody: fields,
-					evalScripts: true,
-					insertion: Insertion.Bottom
-				});
-	$('partieMsgField').innerHTML = '<span class="inProgress">eliminando participante...</span>';
-	return true;
-}
-function showParticipantType(type) {
-	if (type == "Actor") {
-		$('participantActor').show();
-		$('participantUser').hide();
-	}
-	if (type == "User") {
-		$('participantActor').hide();
-		$('participantUser').show();
-	}	
-}
-function clearElement(element) {
-	var e_ref="";
-	e_ref=document.getElementById(element);
-	e_ref.innerHTML = '';
-}
-function getTrendingTopics(){
-	var myAjax = new Ajax.Updater(
-				{success: 'trendingTopicsList'},
-				'Main.php?do=twitterTrendingTopicsSearchX',
-				{
-					method: 'post',
-					evalScripts: true,
-					insertion: Insertion.Bottom
-				});
-	$('trendingTopicsList').innerHTML = '';
-	$('ttDateField').innerHTML = '';
-	$('ttMsgField').innerHTML = '<span class="inProgress">Actualizando Trending Topics...</span>';
-	return false;
-}
 
-function viewTT(form, action) {
-	var fields = Form.serialize(form);
-	var myAjax = new Ajax.Updater(
-				{success: 'trendingTopicsList'},
-				url,
-				{
-					method: 'post',
-					postBody: fields,
-					evalScripts: true
-				});
-	$('trendingTopicsList').innerHTML = '';
-	$('ttDateField').innerHTML = '';
-	$('ttMsgField').innerHTML = '<span class="inProgress">buscando trending topics...</span>';
-	return false;
-}
+var $j = jQuery.noConflict();
+
+$j(document).ready(function($) {
+	$.datepicker.setDefaults($.datepicker.regional['es']);
+    $( ".datepickerFrom" ).datepicker({
+		dateFormat:"dd-mm-yy",
+		onClose: function(selectedDate) {
+            $(".datepickerTo").datepicker("option", "minDate", selectedDate);
+        }
+	}).attr('readonly', 'readonly').css('backgroundColor', '#FFF');
+	$(".datepickerTo").datepicker({
+		dateFormat:"dd-mm-yy",
+		onClose: function(selectedDate) {
+            $(".datepickerFrom").datepicker("option", "maxDate", selectedDate);
+        }
+	}).attr('readonly', 'readonly').css('backgroundColor', '#FFF');
+});
+
+function addParticipantToCampaign(form) {
+		$j.ajax({
+			url: url,
+			data: $j(form).serialize(),
+			type: 'post',
+			success: function(data){
+				$j('#participantsList').html(data);
+			}
+		});
+		$j('#partieMsgField').html('<span class="inProgress">agregando participante a campaña...</span>');
+		return true;
+	}
+
+	function addParticipantToCampaign(form) {
+		$j.ajax({
+			url: url,
+			data: $j(form).serialize(),
+			type: 'post',
+			success: function(data){
+				$j('#participantsList').html(data);
+			}
+		});
+		$j('#partieMsgField').html('<span class="inProgress">agregando participante a campaña...</span>');
+		return true;
+	}
+
+	function deleteParticipantFromCampaign(form){
+		$j.ajax({
+			url: url,
+			data: $j(form).serialize(),
+			type: 'post',
+			success: function(data){
+				$j('#partieMsgField').html(data);
+			}
+		});
+		$j('#partieMsgField').html('<span class="inProgress">eliminando participante...</span>');
+		return true;
+	}
+
+	function showParticipantType(type) {
+		if (type == "Actor") {
+			$j('#participantActor').show();
+			$j('#participantUser').hide();
+		}
+		if (type == "User") {
+			$j('#participantActor').hide();
+			$j('#participantUser').show();
+		}	
+	}
+
+	function clearElement(element) {
+		$j('#' + element).html('');
+	}
+
+	function getTrendingTopics(){
+		$j.ajax({
+			url: 'Main.php?do=twitterTrendingTopicsSearchX',
+			type: 'post',
+			success: function(data){
+				$j('#trendingTopicsList').html(data);
+			}
+		});
+		$j('#trendingTopicsList, #ttDateField').html('');
+		$j('#ttMsgField').html('<span class="inProgress">Actualizando Trending Topics...</span>');
+		return false;
+	}
+
+	function viewTT(form) {
+		$j.ajax({
+			url: 'Main.php?do=twitterTrendingTopicsSearchX',
+			type: 'post',
+			data: $j(form).serialize(),
+			success: function(data){
+				$j('#trendingTopicsList').html(data);
+			}
+		});
+		$j('#trendingTopicsList, #ttDateField').html('');
+		$j('#ttMsgField').html('<span class="inProgress">buscando trending topics...</span>');
+		return false;
+	}
 </script>
-<script type="text/javascript" src="scripts/lightbox.js"></script> 			
 <div id="lightbox2" class="leightbox"> 
 	<p align="right"><a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar formulario <input type="button" class="icon iconClose" /></a></p> 
 	|-include file="ActorsEditInclude.tpl"-|
@@ -124,12 +155,12 @@ function viewTT(form, action) {
 			</p>
 			<p> 
 				<label for="params[startDate]">Fecha de Inicio</label>
-				<input type="text" id="params[startDate]" name="params[startDate]" value="|-$campaign->getstartDate()|date_format:"%d-%m-%Y"-|" title="Fecha de inicio" class="dateValidation emptyValidation" size="12" />
-				<img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('params[startDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha"> |-validation_msg_box idField="params[startDate]"-| </p> 
+				<input name="params[startDate]" type="text" id="params[startDate]" class="datepickerFrom dateValidation emptyValidation" title="fromDate" value="|-$campaign->getstartDate()|date_format:"%d-%m-%Y"-|" size="12" />
+				<img src="images/calendar.png" width="16" height="15" border="0" title="Seleccione la fecha"> |-validation_msg_box idField="params[startDate]"-|</p> 
 			<p> 
 				<label for="params[finishDate]">Fecha de Finalización</label>
-				<input type="text" id="params[finishDate]" name="params[finishDate]" value="|-$campaign->getfinishDate()|date_format:"%d-%m-%Y"-|" title="Fecha de de finalización" class="dateValidation emptyValidation" size="12" />
-				<img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('params[finishDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha"> |-validation_msg_box idField="params[finishDate]"-|</p> 
+				<input name="params[finishDate]" type="text" id="params[finishDate]" class="datepickerTo dateValidation emptyValidation" title="fromDate" value="|-$campaign->getfinishDate()|date_format:"%d-%m-%Y"-|" size="12" />
+				<img src="images/calendar.png" width="16" height="15" border="0" title="Seleccione la fecha"> |-validation_msg_box idField="params[finishDate]"-|</p> 
 			<p>
 				<label for="params[description]">Descripción</label>
 				<textarea name="params[description]" cols="70" rows="6" wrap="virtual" id="params[description]" title="Descripción">|-$campaign->getdescription()|escape-|</textarea>
@@ -202,7 +233,7 @@ function viewTT(form, action) {
 |-assign var=commitments value=$campaign->getCampaignCommitments()-|
 			<div id="commitmentInfo"></div>
 		<table width="100%" cellpadding="5" cellspacing="0" class="tableTdBorders" id="commitmentsList">
-			<th colspan="6" class="thFillTitle"><form name="campaign_add_commitment"><div class="rightLink" onclick="editCommitment();"><input type="hidden" name="do" value="campaignsCommitmentEditX" /><input name="commitmentId" value="" type="hidden"><a href="#lightbox1" rel="lightbox1" class="lbOn addLink">Agregar compromiso</a></div></form></th>
+			<th colspan="6" class="thFillTitle"><form name="campaign_add_commitment"><div class="rightLink" onclick="clearCommitmentForm();"><input type="hidden" name="do" value="campaignsCommitmentEditX" /><input name="commitmentId" value="" type="hidden"><a href="#lightbox1" rel="lightbox1" class="lbOn addLink">Agregar compromiso</a></div></form></th>
 			<tr class="thFillTitle">
 				<th width="50%">Compromiso</th>
 				<th width="40%">Responsable</th>

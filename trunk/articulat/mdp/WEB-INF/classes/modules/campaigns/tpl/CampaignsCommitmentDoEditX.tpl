@@ -1,6 +1,6 @@
 <script type="text/javascript">
-	$('commitmentInfo').innerHTML = '<span class="resultSuccess">Compromiso guardado correctamente</span>';
-	$('form_edit_commitment').reset();
+	$j('#commitmentInfo').html('<span class="resultSuccess">Compromiso guardado correctamente</span>');
+	$j('#form_edit_commitment')[0].reset();
 	clearFormFieldsFormat('form_edit_commitment');
 </script>
 
