@@ -14,6 +14,8 @@ class BaseEditAction extends BaseAction {
 	protected $entity;
 	protected $ajaxTemplate;
 	protected $filters;
+	protected $forwardName = "success";
+	protected $forwardFailureName = "failure";
 	
 	function __construct($entityClassName) {
 		if (empty($entityClassName))
@@ -46,7 +48,7 @@ class BaseEditAction extends BaseAction {
 				throw $e; // Buscar una mejor forma de que falle AJAX
 			else {
 				$this->smarty->assign('message', $e->getMessage());
-				return $mapping->findForwardConfig('failure');
+				return $mapping->findForwardConfig($this->forwardFailureName);
 			}
 		}
 		
@@ -58,11 +60,11 @@ class BaseEditAction extends BaseAction {
 				//Elijo la vista basado en si es o no un pedido por AJAX
 				if ($this->isAjax()) {
 					$this->smarty->assign('notValidId', 'true');
-					return $mapping->findForwardConfig('success');
+					return $mapping->findForwardConfig($this->forwardName);
 				}
 				else {
 					$this->smarty->assign('notValidId', 'true');
-					return $mapping->findForwardConfig('success');
+					return $mapping->findForwardConfig($this->forwardName);
 				}
 			}
 			
@@ -82,7 +84,7 @@ class BaseEditAction extends BaseAction {
 		if ($this->isAjax() && isset($this->ajaxTemplate))
 			$this->smarty->display($this->ajaxTemplate);
 		else
-			return $mapping->findForwardConfig('success');
+			return $mapping->findForwardConfig($this->forwardName);
 
 	}
 	
@@ -91,7 +93,12 @@ class BaseEditAction extends BaseAction {
 	 * Acciones a tomar antres de obtener el objeto
 	 */
 	protected function preEdit() {
-		// default: do nothing
+
+		if (!empty($_REQUEST["filters"]))
+			$this->filters = $_REQUEST["filters"];
+		if (isset($_REQUEST["page"]) && $_REQUEST["page"] > 0)
+			$this->params["page"] = $_REQUEST["page"];
+
 	}
 	
 	/**
@@ -100,6 +107,11 @@ class BaseEditAction extends BaseAction {
 	 */
 	protected function postEdit() {
 
+		// Informacion para armar los links de paginador
+		$url = "Main.php?" . "do=" . lcfirst(substr_replace(get_class($this),'', strrpos(get_class($this), 'Action'), 6));
+		foreach ($this->filters as $key => $value)
+			$url .= "&filters[$key]=" . htmlentities(urlencode($value));
+		$this->smarty->assign("url",$url);
 		// Envio al template parametros de busqueda, mensajes, etc.
 		$this->smarty->assign("filters", $_GET["filters"]);
 		$this->smarty->assign("page", $_GET["page"]);
