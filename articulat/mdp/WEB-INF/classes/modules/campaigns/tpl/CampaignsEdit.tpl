@@ -25,6 +25,9 @@ $j(document).ready(function($) {
             $(".datepickerFrom").datepicker("option", "maxDate", selectedDate);
         }
 	}).attr('readonly', 'readonly').css('backgroundColor', '#FFF');
+	$(".datepickerDocuments").datepicker({
+		dateFormat:"dd-mm-yy"
+	}).attr('readonly', 'readonly').css('backgroundColor', '#FFF');
 });
 
 function addParticipantToCampaign(form) {
