@@ -62,8 +62,13 @@
 				</p>
 			</div>
 			<p><label for="date">Fecha</label>
-				 <input name="date" type="text" value="|-if $document neq ''-||-$document->getDocumentDate()|date_format:'%d-%m-%Y'-||-else-||-$smarty.now|date_format:'%d-%m-%Y'-||-/if-|" size="10" title="Fecha del documento (Formato: dd-mm-yyyy)"/>
-      <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('date', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
+			|-if $entity eq 'Campaign'-|
+			<input class="datepickerDocuments" name="date" type="text" value="|-if $document neq ''-||-$document->getDocumentDate()|date_format:'%d-%m-%Y'-||-else-||-$smarty.now|date_format:'%d-%m-%Y'-||-/if-|" size="10" title="Fecha del documento (Formato: dd-mm-yyyy)"/>
+			<img src="images/calendar.png" width="16" height="15" border="0" title="Seleccione la fecha">
+			|-else-|
+			<input name="date" type="text" value="|-if $document neq ''-||-$document->getDocumentDate()|date_format:'%d-%m-%Y'-||-else-||-$smarty.now|date_format:'%d-%m-%Y'-||-/if-|" size="10" title="Fecha del documento (Formato: dd-mm-yyyy)"/>
+			<img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('date', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
+			|-/if-|
 			</p>
 			<p>
 				<label for="title">Título</label>
