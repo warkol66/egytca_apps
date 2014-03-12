@@ -387,6 +387,7 @@ function zoomableTreemapHeaders(treeInfo, treemap){
 	var headers = d3.scale.ordinal()
 		.domain(["personalTrends", "hashtags", "mentions", "words", "phrases"])
 		.range(["Tendencias Personalizadas", "Hashtags", "Menciones", "Palabras", "Frases"]);
+
     var headerHeight = 20;
     var headerColor = "#555555";
     var transitionDuration = 500;
@@ -477,7 +478,6 @@ function zoomableTreemapHeaders(treeInfo, treemap){
                 });
         childEnterTransition.append("title")
                 .text(function(d) {
-                    console.log(d.name);
                     return d.name;
                 });
         childEnterTransition.append("rect")
@@ -498,11 +498,11 @@ function zoomableTreemapHeaders(treeInfo, treemap){
                 //.style("display", "none")
                 .text(function(d) {
                     return d.name;
-                });
-                /*.style("opacity", function(d) {
+                })
+                .style("opacity", function(d) {
                     d.w = this.getComputedTextLength();
                     return d.dx > d.w ? 1 : 0;
-                });*/
+                });
         // update transition
         var childUpdateTransition = childrenCells.transition().duration(transitionDuration);
         childUpdateTransition.select(".cell")
@@ -633,7 +633,10 @@ function zoomableTreemapHeaders(treeInfo, treemap){
                     return d.children ? headerHeight: Math.max(0.01, (ky * d.dy - 1));
                 })
                 .text(function(d) {
-                    return d.name;
+                	if(indexOf.call(headers.domain(), d.name) > -1)
+                		return headers(d.name);
+                	else
+                		return d.name;
                 });
 
         zoomTransition.select(".child .label")
@@ -644,8 +647,6 @@ function zoomableTreemapHeaders(treeInfo, treemap){
                     return ky * d.dy / 2;
                 })
                 .attr("opacity", function(d) {
-                    //console.log(d.name + " | " + d.name.length*7 + " | " + d.dx);
-                    //console.log(Math.max(0.01, (kx * d.dx - 1)));
                     return (d.name.length*7 < Math.max(0.01, (kx * d.dx - 1)) ? 1 : 0);
                 })
                 .text(function(d) {
@@ -670,5 +671,26 @@ function zoomableTreemapHeaders(treeInfo, treemap){
             d3.event.stopPropagation();
         }
     }
+
+    var indexOf = function(needle) {
+		if(typeof Array.prototype.indexOf === 'function') {
+		    indexOf = Array.prototype.indexOf;
+		} else {
+		    indexOf = function(needle) {
+		        var i = -1, index = -1;
+
+		        for(i = 0; i < this.length; i++) {
+		            if(this[i] === needle) {
+		                index = i;
+		                break;
+		            }
+		        }
+
+		        return index;
+		    };
+		}
+
+		return indexOf.call(this, needle);
+	};
 }
     
