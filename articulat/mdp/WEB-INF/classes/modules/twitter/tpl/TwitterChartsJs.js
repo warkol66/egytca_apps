@@ -12,8 +12,8 @@ function barChart(arrData, destId){
 	var y = d3.scale.linear().range([height, 0]);
 
 	// Positive #6599FF (blue)
-	// Neutral flights #FFDE00 (yellow)
-	// Negative flights #FF9900 (orange)
+	// Neutral #FFDE00 (yellow)
+	// Negative #FF9900 (orange)
 	var color = d3.scale.ordinal().range(["#6599FF", "#FFDE00", "#FF9900"]);
 	
 	var xAxis = d3.svg.axis()
@@ -384,6 +384,9 @@ function zoomableTreemapHeaders(treeInfo, treemap){
     var color = d3.scale.ordinal()
 		.domain(["hashtags", "mentions", "words", "phrases"])
 		.range(["#EFE9DC", "#CCF5EF", "#FFFFDD", "#AAFEFF"]);
+	var headers = d3.scale.ordinal()
+		.domain(["personalTrends", "hashtags", "mentions", "words", "phrases"])
+		.range(["Tendencias Personalizadas", "Hashtags", "Menciones", "Palabras", "Frases"]);
     var headerHeight = 20;
     var headerColor = "#555555";
     var transitionDuration = 500;
@@ -474,6 +477,7 @@ function zoomableTreemapHeaders(treeInfo, treemap){
                 });
         childEnterTransition.append("title")
                 .text(function(d) {
+                    console.log(d.name);
                     return d.name;
                 });
         childEnterTransition.append("rect")
@@ -491,14 +495,14 @@ function zoomableTreemapHeaders(treeInfo, treemap){
                 })
                 .attr("dy", ".35em")
                 .attr("text-anchor", "middle")
-                .style("display", "none")
+                //.style("display", "none")
                 .text(function(d) {
                     return d.name;
-                })
-                .style("opacity", function(d) {
+                });
+                /*.style("opacity", function(d) {
                     d.w = this.getComputedTextLength();
                     return d.dx > d.w ? 1 : 0;
-                });
+                });*/
         // update transition
         var childUpdateTransition = childrenCells.transition().duration(transitionDuration);
         childUpdateTransition.select(".cell")
@@ -524,7 +528,7 @@ function zoomableTreemapHeaders(treeInfo, treemap){
                 })
                 .attr("dy", ".35em")
                 .attr("text-anchor", "middle")
-                .style("display", "none")
+                //.style("display", "none")
                 .text(function(d) {
                     return d.name;
                 })//;
@@ -596,7 +600,7 @@ function zoomableTreemapHeaders(treeInfo, treemap){
         yscale.domain([d.y, d.y + d.dy]);
 
         if (node != level) {
-            chart.selectAll(".cell.child .label").style("display", "none");
+            chart.selectAll(".cell.child .label"); //.style("display", "none");
         }
 
         var zoomTransition = chart.selectAll("g.cell").transition().duration(transitionDuration)
