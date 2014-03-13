@@ -633,7 +633,7 @@ function zoomableTreemapHeaders(treeInfo, treemap){
                     return d.children ? headerHeight: Math.max(0.01, (ky * d.dy - 1));
                 })
                 .text(function(d) {
-                	if(indexOf.call(headers.domain(), d.name) > -1)
+                	if(headers.domain().indexOf(d.name) > -1)
                 		return headers(d.name);
                 	else
                 		return d.name;

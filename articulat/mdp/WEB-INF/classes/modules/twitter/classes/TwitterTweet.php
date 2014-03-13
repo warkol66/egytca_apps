@@ -80,13 +80,20 @@ class TwitterTweet extends BaseTwitterTweet{
 	}
 
 	public static function createTweetArray($apiTweet, $campaignId, $embed){
+		
+		if($apiTweet->retweeted_status){
+			// armar el texto con primera parte + rt
+			$tweetText =  = $apiTweet->text;
+		}else 
+			$tweetText = $apiTweet->text;
+
 
 		return array(
 			'Createdat' => $apiTweet->created_at,
 			'Tweetid' => $apiTweet->id,
 			'Tweetidstr' => $apiTweet->id_str,
 			'Campaignid' => $campaignId,
-			'Text' => $apiTweet->text,
+			'Text' => $tweetText,
 			'Truncated' => $apiTweet->truncated,
 			'Retweeted' => $apiTweet->retweeted,
 			'Inreplytostatusid' => $apiTweet->in_reply_to_status_id,
