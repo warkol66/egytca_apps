@@ -306,7 +306,7 @@ class timeline_bank {
 		$x = 0;
 		foreach($result as $word => $score){
 			if($x < 20){
-				if(strpos($word, " ") > 0){
+				if(mb_strpos($word, " ") > 0){
 					$words_in_phrases = explode(" ",$word);
 					
 					foreach($words_in_phrases as $current_word){
