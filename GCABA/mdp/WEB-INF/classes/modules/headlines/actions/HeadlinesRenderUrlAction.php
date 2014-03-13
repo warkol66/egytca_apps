@@ -1,6 +1,6 @@
 <?php
 
-require_once('WebkitHtmlRenderer.php');
+require_once('PhantomHtmlRenderer/PhantomHtmlRenderer.php');
 
 class HeadlinesRenderUrlAction extends BaseAction {
 	
@@ -129,7 +129,7 @@ class HeadlinesRenderUrlAction extends BaseAction {
 			
 			move_uploaded_file($_FILES["clipping"]["tmp_name"], $destination);
 		} else { // automatic
-			$renderer = new WebkitHtmlRenderer();
+			$renderer = new PhantomHtmlRenderer();
 			$renderer->render($this->uri, $destination);
 		}
 	}
