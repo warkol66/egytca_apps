@@ -80,13 +80,19 @@ class TwitterTweet extends BaseTwitterTweet{
 	}
 
 	public static function createTweetArray($apiTweet, $campaignId, $embed){
-		
+
+		//armo el texto del rt para que no aparezca roto
+		if(!empty($apiTweet->retweeted_status))
+			$text = 'RT @' . $apiTweet->entities->user_mentions[0]->screen_name . ': ' . $apiTweet->retweeted_status->text;
+		else
+			$text = $apiTweet->text;
+
 		return array(
 			'Createdat' => $apiTweet->created_at,
 			'Tweetid' => $apiTweet->id,
 			'Tweetidstr' => $apiTweet->id_str,
 			'Campaignid' => $campaignId,
-			'Text' => $tweetText,
+			'Text' => $text,
 			'Truncated' => $apiTweet->truncated,
 			'Retweeted' => $apiTweet->retweeted,
 			'Inreplytostatusid' => $apiTweet->in_reply_to_status_id,
