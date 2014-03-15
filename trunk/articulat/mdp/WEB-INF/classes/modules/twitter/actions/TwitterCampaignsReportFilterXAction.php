@@ -58,13 +58,6 @@ class TwitterCampaignsReportFilterXAction extends BaseEditAction {
 			foreach($byValue as $date){
 				$byValueTotal += $date['positive'] + $date['neutral'] + $date['negative'];
 			}
-			// seteo los valores disponibles para usarlos luego en la creacion del grafico
-			if(array_key_exists('positive',$byValue[0]))
-				$this->smarty->assign('positive', true);
-			if(array_key_exists('neutral',$byValue[0]))
-				$this->smarty->assign('neutral', true);
-			if(array_key_exists('negative',$byValue[0]))
-				$this->smarty->assign('negative', true);
 			$this->smarty->assign('byValue', $byValue);
 			$this->smarty->assign('byValueTotal', $byValueTotal);
 			
@@ -76,13 +69,6 @@ class TwitterCampaignsReportFilterXAction extends BaseEditAction {
 			foreach($byRelevance as $date){
 				$byRelevanceTotal += $date['relevant'] + $date['neutrally_relevant'] + $date['irrelevant'];
 			}
-			// seteo los valores disponibles para usarlos luego en la creacion del grafico
-			if(array_key_exists('relevant',$byRelevance[0]))
-				$this->smarty->assign('relevant', true);
-			if(array_key_exists('neutrally_relevant',$byRelevance[0]))
-				$this->smarty->assign('neutrally_relevant', true);
-			if(array_key_exists('irrelevant',$byRelevance[0]))
-				$this->smarty->assign('irrelevant', true);
 			$this->smarty->assign('byRelevance', $byRelevance);
 			$this->smarty->assign('byRelevanceTotal', $byRelevanceTotal);
 			
@@ -96,12 +82,12 @@ class TwitterCampaignsReportFilterXAction extends BaseEditAction {
 				// obtengo los usuarios que mas tweets crearon
 				$topUsers = TwitterUserQuery::getTopUsers($tweetsFilters, 5);
 				$influentialUsers = TwitterUserQuery::getInfluentialUsers($tweetsFilters);
-				$tweetsAmount = TwitterTweetQuery::getCombinations($tweetsFilters);
+				$vennData = TwitterTweetQuery::getVennData($tweetsFilters);
 				/*echo"<pre>"; print_r($relevantUsers); echo"</pre>";
 				die();*/
 				$this->smarty->assign('topUsers', $topUsers);
 				$this->smarty->assign('influentialUsers', $influentialUsers);
-				$this->smarty->assign('tweetsAmount', $tweetsAmount);
+				$this->smarty->assign('vennData', $vennData);
 				
 				/* Tendencias personalizadas */
 			

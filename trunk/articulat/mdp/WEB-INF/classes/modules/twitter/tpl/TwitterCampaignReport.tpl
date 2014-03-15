@@ -89,15 +89,16 @@
 	});
 	
 	|-if !empty($byValue)-|
-	var arrByValue = [|-foreach from=$byValue item=pos-|{"Fecha":"|-$pos['date']|date_format:'%d-%m-%Y'-|"|-if !empty($positive)-|,"Positivos":"|-$pos['positive']-|"|-/if-||-if !empty($neutral)-|,"Neutros":"|-$pos['neutral']-|"|-/if-||-if !empty($negative)-|,"Negativos":"|-$pos['negative']-|"|-/if-|}|-if !$byValue@last-|,|-/if-||-/foreach-|];
+	var arrByValue = [|-foreach from=$byValue item=pos-|{"Fecha":"|-$pos['date']|date_format:'%d-%m-%Y'-|","Positivos":"|-$pos['positive']-|","Neutros":"|-$pos['neutral']-|","Negativos":"|-$pos['negative']-|"}|-if !$byValue@last-|,|-/if-||-/foreach-|];
 	//var arrByValue = |-$byValue-|;
-	//console.log(arrByValue);
+	console.log(arrByValue);
 	barChart(arrByValue,'byValueChart');
 	|-/if-|
 	
 	|-if !empty($byRelevance)-|
-	var arrByRelevance = [|-foreach from=$byRelevance item=pos-|{"Fecha":"|-$pos['date']|date_format:'%d-%m-%Y'-|"|-if !empty($positive)-|,"Relevantes":"|-$pos['relevant']-|"|-/if-||-if !empty($neutral)-|,"Neutros":"|-$pos['neutrally_relevant']-|"|-/if-||-if !empty($negative)-|,"Irrelevantes":"|-$pos['irrelevant']-|"|-/if-|}|-if !$byValue@last-|,|-/if-||-/foreach-|];
+	var arrByRelevance = [|-foreach from=$byRelevance item=pos-|{"Fecha":"|-$pos['date']|date_format:'%d-%m-%Y'-|","Relevantes":"|-$pos['relevant']-|","Neutros":"|-$pos['neutrally_relevant']-|","Irrelevantes":"|-$pos['irrelevant']-|"}|-if !$byValue@last-|,|-/if-||-/foreach-|];
 	barChart(arrByRelevance,'byRelevanceChart');
+	console.log(arrByRelevance);
 	|-/if-|
 	
 	|-if !empty($byGender[0])-|
@@ -115,9 +116,11 @@
 	influentialChart(arrInfluentialUsers, '|-$campaign->getId()-|', '|-count($influentialUsers)-|');
 	|-/if-|
 	
-	|-if !empty($tweetsAmount)-|
-	var bubble = [|-foreach from=$tweetsAmount item=group-|{"name": "|-$group['name']-|", "value": "|-$group['value']-|"}|-if !$tweetsAmount@last-|,|-/if-||-/foreach-|];
-	bubbleChart(bubble);
+	|-if !empty($vennData)-|
+	var sets = |-$vennData['sets']-|, overlaps = |-$vennData['overlaps']-|;
+	sets = venn.venn(sets, overlaps);
+	// draw the diagram in the 'simple_example' div
+	venn.drawD3Diagram(d3.select("#bubbleGroupChart"), sets, 500, 350);
 	|-/if-|
 	
 	|-if !empty($treemapPersonalTrends)-|

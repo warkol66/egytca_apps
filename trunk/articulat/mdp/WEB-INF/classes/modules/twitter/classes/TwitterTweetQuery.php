@@ -137,13 +137,15 @@ class TwitterTweetQuery extends BaseTwitterTweetQuery{
 					
 	}
 	
-	public static function getAllByValue($filters){
-		
+	public static function getAllByValue($filters, $totalCount = false){
+	 	
 		$byValue = TwitterTweetQuery::create()
 			->applyReportFilters($filters)
-			->withColumn('CAST(TwitterTweet.Createdat as DATE)', 'date')
-			->groupBy('TwitterTweet.date')
-			->countByValue($filters)
+			->_if(!$totalCount)
+				->withColumn('CAST(TwitterTweet.Createdat as DATE)', 'date')
+				->groupBy('TwitterTweet.date')
+			->_endif()
+			->countByValue($filters, $totalCount)
 			->find();
 		
 		return $byValue;
@@ -152,7 +154,7 @@ class TwitterTweetQuery extends BaseTwitterTweetQuery{
 	/* Agrupa la cantidad de tweets por valor
 	 * 
 	 * */
-	private function countByValue($filters){
+	private function countByValue($filters, $totalCount = false){
 		
 		$positive = TwitterTweet::POSITIVE;
 		$neutral = TwitterTweet::NEUTRAL;
@@ -161,36 +163,35 @@ class TwitterTweetQuery extends BaseTwitterTweetQuery{
 		return $this->_if(!empty($filters['relevance']))
 						->filterByRelevance($filters['relevance'])
 					->_endif()
-					->_if($filters['value'] == $positive)
-						->withColumn('sum(if(TwitterTweet.Value = '. $positive .', 1, 0))', 'positive')
-						->select(array('date','positive'))
-					->_elseif($filters['value'] == $neutral)
-						->withColumn('sum(if(TwitterTweet.Value = '. $neutral .', 1, 0))', 'neutral')
-						->select(array('date','neutral'))
-					->_elseif($filters['value'] == $negative)
-						->withColumn('sum(if(TwitterTweet.Value = '. $negative .', 1, 0))', 'negative')
-						->select(array('date','negative'))
+					->_if(!empty($filters['value']))
+						->filterByValue($filters['value'])
+					->_endif()
+					->withColumn('sum(if(TwitterTweet.Value = '. $positive .', 1, 0))', 'positive')
+					->withColumn('sum(if(TwitterTweet.Value = '. $neutral .', 1, 0))', 'neutral')
+					->withColumn('sum(if(TwitterTweet.Value = '. $negative .', 1, 0))', 'negative')
+					->_if($totalCount)
+						->select(array('positive', 'neutral', 'negative'))
 					->_else()
-						->withColumn('sum(if(TwitterTweet.Value = '. TwitterTweet::POSITIVE .', 1, 0))', 'positive')
-						->withColumn('sum(if(TwitterTweet.Value = '. TwitterTweet::NEUTRAL .', 1, 0))', 'neutral')
-						->withColumn('sum(if(TwitterTweet.Value = '. TwitterTweet::NEGATIVE .', 1, 0))', 'negative')
 						->select(array('date','positive', 'neutral', 'negative'))
 					->_endif();
+
 	}
 	
-	public static function getAllByRelevance($filters){
+	public static function getAllByRelevance($filters, $totalCount = false){
 		
 		$byRelevance = TwitterTweetQuery::create()
 			->applyReportFilters($filters)
-			->withColumn('CAST(TwitterTweet.Createdat as DATE)', 'date')
-			->groupBy('TwitterTweet.date')
-			->countByRelevance($filters)
+			->_if(!$totalCount)
+				->withColumn('CAST(TwitterTweet.Createdat as DATE)', 'date')
+				->groupBy('TwitterTweet.date')
+			->_endif()
+			->countByRelevance($filters, $totalCount)
 			->find();
 		
 		return $byRelevance;
 	}
 	
-	private function countByRelevance($filters){
+	private function countByRelevance($filters, $totalCount = false){
 		
 		$relevant = TwitterTweet::RELEVANT;
 		$neutrally_relevant = TwitterTweet::NEUTRALLY_RELEVANT;
@@ -199,19 +200,15 @@ class TwitterTweetQuery extends BaseTwitterTweetQuery{
 		return $this->_if(!empty($filters['value']))
 						->filterByValue($filters['value'])
 					->_endif()
-					->_if($filters['relevance'] == $relevant)
+					->_if(!empty($filters['relevance']))
+						->filterByRelevance($filters['relevance'])
+					->_endif()
 						->withColumn('sum(if(TwitterTweet.Relevance = '. $relevant .', 1, 0))', 'relevant')
-						->select(array('date','relevant'))
-					->_elseif($filters['relevance'] == $neutrally_relevant)
 						->withColumn('sum(if(TwitterTweet.Relevance = '. $neutrally_relevant .', 1, 0))', 'neutrally_relevant')
-						->select(array('date','neutrally_relevant'))
-					->_elseif($filters['relevance'] == $irrelevant)
 						->withColumn('sum(if(TwitterTweet.Relevance = '. $irrelevant .', 1, 0))', 'irrelevant')
-						->select(array('date','irrelevant'))
+					->_if($totalCount)
+						->select(array('relevant', 'neutrally_relevant', 'irrelevant'))
 					->_else()
-						->withColumn('sum(if(TwitterTweet.Relevance = '. TwitterTweet::RELEVANT .', 1, 0))', 'relevant')
-						->withColumn('sum(if(TwitterTweet.Relevance = '. TwitterTweet::NEUTRALLY_RELEVANT .', 1, 0))', 'neutrally_relevant')
-						->withColumn('sum(if(TwitterTweet.Relevance = '. TwitterTweet::IRRELEVANT .', 1, 0))', 'irrelevant')
 						->select(array('date','relevant', 'neutrally_relevant', 'irrelevant'))
 					->_endif();
 	}
@@ -264,7 +261,7 @@ class TwitterTweetQuery extends BaseTwitterTweetQuery{
 		if(empty($filters['type']))
 			$filters['type'] = 0;
 			
-		TwitterTweetQuery::create()
+		$tweets = TwitterTweetQuery::create()
 			->applyReportFilters($filters)
 			->_if(!empty($filters['value']))
 				->filterByValue($filters['value'])
@@ -273,6 +270,8 @@ class TwitterTweetQuery extends BaseTwitterTweetQuery{
 				->filterByValue($filters['relevance'])
 			->_endif()
 			->find();
+
+		return $tweets;
 	}
 	
 	/*No esta en uso*/
@@ -291,7 +290,7 @@ class TwitterTweetQuery extends BaseTwitterTweetQuery{
 	/* Obtiene la cantidad de tweets de todas las combinaciones entre
 	 * valores y relevancias
 	 * */
-	public function getCombinations($filters){
+	/*public static function getCombinations($filters){
 		
 		$tempValues = TwitterTweet::getValues();
 		$tempRelevances = TwitterTweet::getRelevances();
@@ -323,14 +322,90 @@ class TwitterTweetQuery extends BaseTwitterTweetQuery{
 					->filterByRelevance($relevance)
 					->count();
 				
-				$combinations[$i]['name'] = $name . '-' . $relName;
-				$combinations[$i]['value'] = $tweetsAmount;
+				$combinations[$i]['label'] = $name . '-' . $relName;
+				$combinations[$i]['size'] = $tweetsAmount;
 				
 				$i++;
 			}
 		}
 		
 		return $combinations;
+	}*/
+
+	/* Obtiene los datos para el diagrama de venn
+	* 
+	* @filters: filtros a aplicar a los tweets
+	* @return: array(JSON) arreglo de sets y overlaps para usar en el grafico
+	*/
+	public static function getVennData($filters){
+
+		// obtengo los sets por valor y relevancia sin formato
+		$byValue = TwitterTweetQuery::getAllByValue($filters, true)->toArray();
+		$byValue = $byValue[0];
+		$valuesOrder = TwitterTweet::getTwitterConstants(array_keys($byValue));
+
+		$byRelevance = TwitterTweetQuery::getAllByRelevance($filters, true)->toArray();
+		$byRelevance = $byRelevance[0];
+		$relevancesOrder = TwitterTweet::getTwitterConstants(array_keys($byRelevance));
+		
+		$unformattedSets = array_merge($byRelevance, $byValue);
+
+		$vennData['sets'] = TwitterTweetQuery::formatVennSets($unformattedSets);
+		$vennData['overlaps'] = TwitterTweetQuery::getVennOverlaps($valuesOrder, $relevancesOrder, $filters);
+
+		return $vennData;
+
+	}
+
+
+	/* Formatea el arreglo de conjuntos para el diagrama de venn
+	* 
+	* @param $unformattedSets: arreglo de conjuntos. ej array($nombreConj => $cantElementos)
+	* return: JSON {['label': $nombreConj, 'size': $cantElem]}
+	*/
+	public static function formatVennSets($unformattedSets){
+
+		// formateo los sets 
+		$sets = array();
+		$i = 0;
+
+		foreach ($unformattedSets as $key => $value) {
+			$sets[$i]['label'] = $key;
+			$sets[$i]['size'] = $value;
+			$i++;
+		}
+
+		return json_encode($sets);
+
+	}
+
+
+	/* Obtiene las uniones para el diagrama de Venn
+	* 
+	* @param $valuesOrder: valor de las constantes VALUE en orden
+	* @param $relevancesOrder: valor de las constantes RELEVANCE en orden
+	* return: JSON - {['sets': [setX, setY], 'size': #{setX U setY}]}
+	*/
+	public static function getVennOverlaps($valuesOrder, $relevancesOrder, $filters){
+
+		// obtengo los overlaps
+		$overlaps = array();
+		$i = 0;
+		$offset = count($valuesOrder);
+		// obtengo las intersecciones
+		foreach ($valuesOrder as $keyV => $valueV) {
+			foreach ($relevancesOrder as $keyR => $valueR) {
+				$filters['value'] = $valueV;
+				$filters['relevance'] = $valueR;
+				$amount = TwitterTweetQuery::getTweetsForReport($filters)->count();
+				$overlaps[$i]['sets'] = array($keyV, $keyR + $offset);
+				$overlaps[$i]['size'] = $amount;
+				$i++;
+			}
+		}
+
+		return json_encode($overlaps);
+
 	}
 	
 	public static function getUsersAmount($filters){

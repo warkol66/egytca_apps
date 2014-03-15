@@ -63,6 +63,17 @@ class TwitterTweet extends BaseTwitterTweet{
 		$relevances[TwitterTweet::IRRELEVANT] = 'Irrelevante';
 		return $relevances;
 	}
+
+	public static function getTwitterConstants($valuesArray){
+		$constants = array();
+
+		foreach ($valuesArray as $value) {
+			$val = strtoupper($value);
+			$constants[] = constant('self::' . $val);
+		}
+
+		return $constants;
+	}
 	
 	public function createFromApiTweet($apiTweet, $campaignId, $embed) {
 		// fecha de creacion en timezone del sistema
