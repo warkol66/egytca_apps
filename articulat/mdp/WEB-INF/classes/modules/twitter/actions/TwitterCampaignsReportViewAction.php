@@ -25,34 +25,18 @@ class TwitterCampaignsReportViewAction extends BaseEditAction {
 			$tweetsFilters['from'] = Common::getDatetimeOnGMT(date('Y-m-d H:i:s',strtotime($this->entity->getStartdate())));
 			$tweetsFilters['to'] = Common::getDatetimeOnGMT(date('Y-m-d H:i:s',strtotime($this->entity->getFinishdate())));
 			
-			/*print_r($byValue);
-			die();*/
 			$byValue = TwitterTweetQuery::getAllByValue($tweetsFilters);
 			$byValueTotal = 0;
 			foreach($byValue as $date){
 				$byValueTotal += $date['positive'] + $date['neutral'] + $date['negative'];
 			}
-			// seteo los valores disponibles para usarlos luego en la creacion del grafico
-			if(array_key_exists('positive',$byValue[0]))
-				$this->smarty->assign('positive', true);
-			if(array_key_exists('neutral',$byValue[0]))
-				$this->smarty->assign('neutral', true);
-			if(array_key_exists('negative',$byValue[0]))
-				$this->smarty->assign('negative', true);
 				
 			$byRelevance = TwitterTweetQuery::getAllByRelevance($tweetsFilters);
 			$byRelevanceTotal = 0;
 			foreach($byRelevance as $date){
 				$byRelevanceTotal += $date['relevant'] + $date['neutrally_relevant'] + $date['irrelevant'];
 			}
-			// seteo los valores disponibles para usarlos luego en la creacion del grafico
-			if(array_key_exists('relevant',$byRelevance[0]))
-				$this->smarty->assign('relevant', true);
-			if(array_key_exists('neutrally_relevant',$byRelevance[0]))
-				$this->smarty->assign('neutrally_relevant', true);
-			if(array_key_exists('irrelevant',$byRelevance[0]))
-				$this->smarty->assign('irrelevant', true);
-				
+	
 			$this->smarty->assign('byValue', $byValue);
 			$this->smarty->assign('byValueTotal', $byValueTotal);
 			$this->smarty->assign('byRelevance', $byRelevance);
@@ -72,14 +56,14 @@ class TwitterCampaignsReportViewAction extends BaseEditAction {
 				/*echo"<pre>"; print_r($relevantUsers); echo"</pre>";
 				die();*/
 				
-				$tweetsAmount = TwitterTweetQuery::getCombinations($tweetsFilters);
-				/*print_r($tweetsAmount);
+				$vennData = TwitterTweetQuery::getVennData($tweetsFilters);
+				/*print_r($vennData);
 				die();
 				/*echo"<pre>"; print_r($tweetsAmount); echo"</pre>";
 				die();*/
 				$this->smarty->assign('topUsers', $topUsers);
 				$this->smarty->assign('influentialUsers', $influentialUsers);
-				$this->smarty->assign('tweetsAmount', $tweetsAmount);
+				$this->smarty->assign('vennData', $vennData);
 				$this->smarty->assign('trendingTopics', TwitterTrendingTopicQuery::getMostTrending($tweetsFilters['from'], $tweetsFilters['to'],10));
 				/*echo"<pre>"; print_r(TwitterTrendingTopicQuery::getMostTrending($tweetsFilters['from'], $tweetsFilters['to'],100)); echo"</pre>";
 				die();*/

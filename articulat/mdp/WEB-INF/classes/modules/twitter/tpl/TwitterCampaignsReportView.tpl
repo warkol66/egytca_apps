@@ -5,6 +5,7 @@
 <link rel="stylesheet" media="all" type="text/css" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 <link type="text/css" rel="stylesheet" href="scripts/jquery/jqueryTimepicker/src/jquery-ui-timepicker-addon.css" />
 <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+<script src="scripts/venn.js" charset="utf-8"></script>
 <script src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 <script src="scripts/jquery/jquery.min.js" charset="utf-8"></script>
 <script src="scripts/jquery/jquery-ui-1.10.3.custom.min.js" charset="utf-8"></script>
@@ -71,7 +72,7 @@
 	</ul>
 	</div>
 	<div id="content">
-	  |-include file="TwitterCampaignReport.tpl" personalSelected=$personalSelected positive=$positive neutral=$neutral negative=$negative relevant=$relevant neutrally_relevant=$neutrally_relevant irrelevant=$irrelevant byValueTotal=$byValueTotal byRelevanceTotal=$byRelevanceTotal trendingTopics=$trendingTopics byValue=$byValue byRelevance=$byRelevance topUsers=$topUsers influentialUsers=$influentialUsers tweetsAmount=$tweetsAmount treemapPersonalTrends=$treemapPersonalTrends campaign=$campaign byGender=$byGender-|
+	  |-include file="TwitterCampaignReport.tpl" personalSelected=$personalSelected byValueTotal=$byValueTotal byRelevanceTotal=$byRelevanceTotal trendingTopics=$trendingTopics byValue=$byValue byRelevance=$byRelevance topUsers=$topUsers influentialUsers=$influentialUsers tweetsAmount=$tweetsAmount treemapPersonalTrends=$treemapPersonalTrends campaign=$campaign byGender=$byGender-|
 </div>
 
 <script type="text/javascript">

@@ -182,7 +182,7 @@ function positiveAll(campaignId, form) {
 }
 
 function neutralAll(campaignId, form) {
-	{new Ajax.Updater("resultDiv", "Main.php?do=twitterParsedProcessX&action=neutral&id="+campaignId, { method: "post", parameters: Form.serialize(form),|-if isset($currentPage)-|onComplete: reload(|-$currentPage-|,|-$lastPage-|),|-/if-| evalScripts: true})};$("resultDiv").innerHTML = "<span class=\"inProgress\">Valorando positivo...</span>";
+	{new Ajax.Updater("resultDiv", "Main.php?do=twitterParsedProcessX&action=neutral&id="+campaignId, { method: "post", parameters: Form.serialize(form),|-if isset($currentPage)-|onComplete: reload(|-$currentPage-|,|-$lastPage-|),|-/if-| evalScripts: true})};$("resultDiv").innerHTML = "<span class=\"inProgress\">Valorando neutro...</span>";
 }
 
 function negativeAll(campaignId, form) {
