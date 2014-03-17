@@ -396,7 +396,7 @@ function zoomableTreemapHeaders(treeInfo, treemap){
 
     var jsonData = treeInfo;
 
-    var chart = d3.select("#treeMap").append("div")
+    var chart = d3.select("#treeMapNew").append("div")
             .append("svg:svg")
             .attr("width", chartWidth)
             .attr("height", chartHeight)

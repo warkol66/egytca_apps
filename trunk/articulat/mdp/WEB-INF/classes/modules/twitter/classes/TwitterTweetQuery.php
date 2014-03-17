@@ -290,7 +290,7 @@ class TwitterTweetQuery extends BaseTwitterTweetQuery{
 	/* Obtiene la cantidad de tweets de todas las combinaciones entre
 	 * valores y relevancias
 	 * */
-	/*public static function getCombinations($filters){
+	public static function getCombinations($filters){
 		
 		$tempValues = TwitterTweet::getValues();
 		$tempRelevances = TwitterTweet::getRelevances();
@@ -322,15 +322,15 @@ class TwitterTweetQuery extends BaseTwitterTweetQuery{
 					->filterByRelevance($relevance)
 					->count();
 				
-				$combinations[$i]['label'] = $name . '-' . $relName;
-				$combinations[$i]['size'] = $tweetsAmount;
+				$combinations[$i]['name'] = $name . '-' . $relName;
+				$combinations[$i]['value'] = $tweetsAmount;
 				
 				$i++;
 			}
 		}
 		
 		return $combinations;
-	}*/
+	}
 
 	/* Obtiene los datos para el diagrama de venn
 	* 
