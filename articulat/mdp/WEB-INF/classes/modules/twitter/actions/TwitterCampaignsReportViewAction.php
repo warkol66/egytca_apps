@@ -57,13 +57,14 @@ class TwitterCampaignsReportViewAction extends BaseEditAction {
 				die();*/
 				
 				$vennData = TwitterTweetQuery::getVennData($tweetsFilters);
-				/*print_r($vennData);
-				die();
+				$tweetsAmount = TwitterTweetQuery::getCombinations($tweetsFilters);
 				/*echo"<pre>"; print_r($tweetsAmount); echo"</pre>";
 				die();*/
+
 				$this->smarty->assign('topUsers', $topUsers);
 				$this->smarty->assign('influentialUsers', $influentialUsers);
 				$this->smarty->assign('vennData', $vennData);
+				$this->smarty->assign('tweetsAmount', $tweetsAmount);
 				$this->smarty->assign('trendingTopics', TwitterTrendingTopicQuery::getMostTrending($tweetsFilters['from'], $tweetsFilters['to'],10));
 				/*echo"<pre>"; print_r(TwitterTrendingTopicQuery::getMostTrending($tweetsFilters['from'], $tweetsFilters['to'],100)); echo"</pre>";
 				die();*/

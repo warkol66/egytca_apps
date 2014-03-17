@@ -83,11 +83,13 @@ class TwitterCampaignsReportFilterXAction extends BaseEditAction {
 				$topUsers = TwitterUserQuery::getTopUsers($tweetsFilters, 5);
 				$influentialUsers = TwitterUserQuery::getInfluentialUsers($tweetsFilters);
 				$vennData = TwitterTweetQuery::getVennData($tweetsFilters);
+				$tweetsAmount = TwitterTweetQuery::getCombinations($tweetsFilters);
 				/*echo"<pre>"; print_r($relevantUsers); echo"</pre>";
 				die();*/
 				$this->smarty->assign('topUsers', $topUsers);
 				$this->smarty->assign('influentialUsers', $influentialUsers);
 				$this->smarty->assign('vennData', $vennData);
+				$this->smarty->assign('tweetsAmount', $tweetsAmount);
 				
 				/* Tendencias personalizadas */
 			

@@ -77,6 +77,11 @@
 			<div id="treeMap">
 			</div>
 		</div>
+		<div id='newChartsSection'>
+			<h4>Graficos a probar</h4>
+			|-include file="TreemapChart.tpl" personalTrends=$treemapPersonalTrends-|
+			|-include file="VennChart.tpl" vennData=$vennData-|
+		</div>
 	 </div>
 <script type="text/javascript">
 	$j(function() {
@@ -91,7 +96,6 @@
 	|-if !empty($byValue)-|
 	var arrByValue = [|-foreach from=$byValue item=pos-|{"Fecha":"|-$pos['date']|date_format:'%d-%m-%Y'-|","Positivos":"|-$pos['positive']-|","Neutros":"|-$pos['neutral']-|","Negativos":"|-$pos['negative']-|"}|-if !$byValue@last-|,|-/if-||-/foreach-|];
 	//var arrByValue = |-$byValue-|;
-	console.log(arrByValue);
 	barChart(arrByValue,'byValueChart');
 	|-/if-|
 	
@@ -115,29 +119,16 @@
 	var arrInfluentialUsers = [|-foreach from=$influentialUsers item=influentialUser-|{"name":"@|-$influentialUser->getScreenname()-|","id":"|-$influentialUser->getId()-|"}|-if !$influentialUsers@last-|,|-/if-||-/foreach-|];
 	influentialChart(arrInfluentialUsers, '|-$campaign->getId()-|', '|-count($influentialUsers)-|');
 	|-/if-|
-	
-	|-if !empty($vennData)-|
-	var sets = |-$vennData['sets']-|, overlaps = |-$vennData['overlaps']-|;
-	sets = venn.venn(sets, overlaps);
-	// draw the diagram in the 'simple_example' div
-	venn.drawD3Diagram(d3.select("#bubbleGroupChart"), sets, 500, 350);
+
+	|-if !empty($tweetsAmount)-|
+	var bubble = [|-foreach from=$tweetsAmount item=group-|{"name": "|-$group['name']-|", "value": "|-$group['value']-|"}|-if !$tweetsAmount@last-|,|-/if-||-/foreach-|];
+	bubbleChart(bubble);
 	|-/if-|
 	
 	|-if !empty($treemapPersonalTrends)-|
 	var personalTrends = |-$treemapPersonalTrends-|;
 	if(personalTrends.children.length > 0){
-		var treemap = d3.layout.treemap()
-		.round(false)
-		.size([1200 - 80, 700 - 180])
-		.sticky(true)
-		.padding([20 + 1, 1, 1, 1])
-		.value(function(d) {
-			return d.size;
-		});
-		
-		zoomableTreemapHeaders(personalTrends, treemap);
+		zoomableTreemap(personalTrends);
 	}
 	|-/if-|
-			
-	
 </script>
