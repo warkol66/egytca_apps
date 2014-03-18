@@ -349,7 +349,12 @@ function zoomableTreemap(treeInfo, divId, w, h){
 		.attr("y", function(d) { return d.dy / 2; })
 		.attr("dy", ".35em")
 		.attr("text-anchor", "middle")
-		.text(function(d) { return d.children ? null : d.name; })
+		.text(function(d) { 
+			if(divId == 'vennChart')
+				return d.children ? null : d.name + ' ' + d.size;
+			else
+				return d.children ? null : d.name; 
+		})
 		//.text(function(d) { return d.name; })
 		.style("opacity", function(d) { d.w = this.getComputedTextLength(); return d.dx > d.w ? 1 : 0; });
 	d3.select(window).on("click", function() { zoom(root); });
