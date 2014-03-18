@@ -68,7 +68,7 @@ class TwitterCampaignsReportViewAction extends BaseEditAction {
 				$this->smarty->assign('treemapAmount', TwitterTweetQuery::formatForTreemap($tweetsAmount, 'combinaciones'));
 				/*$formattedAms = TwitterTweetQuery::formatForTreemap($tweetsAmount, 'combinaciones');
 				echo"<pre>"; print_r($formattedAms); echo"</pre>";
-				die();*/
+				/*die();*/
 				$this->smarty->assign('trendingTopics', TwitterTrendingTopicQuery::getMostTrending($tweetsFilters['from'], $tweetsFilters['to'],10));
 				/*echo"<pre>"; print_r(TwitterTrendingTopicQuery::getMostTrending($tweetsFilters['from'], $tweetsFilters['to'],100)); echo"</pre>";
 				die();*/
