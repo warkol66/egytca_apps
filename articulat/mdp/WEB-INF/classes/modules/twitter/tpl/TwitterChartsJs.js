@@ -498,11 +498,11 @@ function zoomableTreemapHeaders(treeInfo, treemap){
                 //.style("display", "none")
                 .text(function(d) {
                     return d.name;
-                })
-                .style("opacity", function(d) {
+                });
+                /*.style("opacity", function(d) {
                     d.w = this.getComputedTextLength();
                     return d.dx > d.w ? 1 : 0;
-                });
+                });*/
         // update transition
         var childUpdateTransition = childrenCells.transition().duration(transitionDuration);
         childUpdateTransition.select(".cell")
@@ -592,12 +592,10 @@ function zoomableTreemapHeaders(treeInfo, treemap){
                 .nodes(d);
 
         // moving the next two lines above treemap layout messes up padding of zoom result
-        var kx = chartWidth  / d.dx;
-        var ky = chartHeight / d.dy;
+        var kx = chartWidth / d.dx, ky = chartHeight / d.dy;
+		xscale.domain([d.x, d.x + d.dx]);
+		yscale.domain([d.y, d.y + d.dy]);
         var level = d;
-
-        xscale.domain([d.x, d.x + d.dx]);
-        yscale.domain([d.y, d.y + d.dy]);
 
         if (node != level) {
             chart.selectAll(".cell.child .label"); //.style("display", "none");
@@ -647,7 +645,7 @@ function zoomableTreemapHeaders(treeInfo, treemap){
                     return ky * d.dy / 2;
                 })
                 .attr("opacity", function(d) {
-                    return (d.name.length*7 < Math.max(0.01, (kx * d.dx - 1)) ? 1 : 0);
+                    return kx * d.dx > d.w ? 1 : 0; //return (d.name.length*7 < Math.max(0.01, (kx * d.dx - 1)) ? 1 : 0);
                 })
                 .text(function(d) {
                     return d.name;
