@@ -389,7 +389,7 @@ function zoomableTreemapHeaders(treeInfo, treemap){
 		.range(["Tendencias Personalizadas", "Hashtags", "Menciones", "Palabras", "Frases"]);
 
     var headerHeight = 20;
-    var headerColor = "#555555";
+    var headerColor = "#ffffff";
     var transitionDuration = 500;
     var root;
     var node;
