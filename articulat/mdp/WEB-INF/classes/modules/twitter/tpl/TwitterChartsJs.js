@@ -297,10 +297,20 @@ function zoomableTreemap(treeInfo, divId, w, h){
 	formatNumber = d3.format(",d"),
 	root,
 	node;
-	var color = d3.scale.ordinal()
-		.domain(["hashtags", "mentions", "words", "phrases"])
-		.range(["#EFE9DC", "#CCF5EF", "#FFFFDD", "#AAFEFF"]);
-	//var color = ["#EFE9DC", "#CCF5EF", "#FFFFDD", "#AAFEFF"];
+	if(divId == 'treeMap'){
+		var color = d3.scale.ordinal()
+			.domain(["hashtags", "mentions", "words", "phrases"])
+			.range(["#EFE9DC", "#CCF5EF", "#FFFFDD", "#AAFEFF"]);
+		//var color = ["#EFE9DC", "#CCF5EF", "#FFFFDD", "#AAFEFF"];
+	}else if(divId == 'vennChart'){
+		var color = d3.scale.ordinal()
+			.domain(["Positivo-Relevante", "Positivo-Medianamente relevante", "Positivo-Irrelevante", 
+			"Neutro-Relevante", "Neutro-Medianamente relevante", "Neutro-Irrelevante",
+			"Negativo-Relevante", "Negativo-Medianamente relevante", "Negativo-Irrelevante"])
+			.range(["#006cff", "#72aeff", "#daeaff",
+			"#fff600", "#fffb81", "#fffedd",
+			"#ff0000", "#ff7777", "fdcdcd"]);
+	}
 	var treemap = d3.layout.treemap()
 		.round(false)
 		.size([w, h])
@@ -316,7 +326,7 @@ function zoomableTreemap(treeInfo, divId, w, h){
 		.append("svg:g")
 		.attr("transform", "translate(.5,.5)");
 
-	var data = treeInfo;
+	data = treeInfo;
 
 //d3.json("flare.json", function(data) {
 	node = root = data;

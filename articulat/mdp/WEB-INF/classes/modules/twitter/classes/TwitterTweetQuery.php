@@ -333,10 +333,16 @@ class TwitterTweetQuery extends BaseTwitterTweetQuery{
 	}
 	
 	public function formatForTreemap($toFormat, $parentName){
-		/*$newKeys = array('value' => 'size');
-		array_combine(array_merge($toFormat, $newKeys), $toFormat);*/
-		$formatted = array('name' => $parentName, 'children' => $toFormat);
+		$formatted = array();
 		
+		foreach($toFormat as $combination){
+			$comb = array($combination);
+			$formatted[] = array('name' => $combination['name'], 'children' => $comb);
+ 		}
+		
+		$formatted = array('name' => $parentName, 'children' => $formatted);
+		
+		//return $formatted;
 		return json_encode($formatted);
 	}
 
