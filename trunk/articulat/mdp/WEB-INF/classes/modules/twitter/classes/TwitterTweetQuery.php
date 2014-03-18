@@ -323,13 +323,21 @@ class TwitterTweetQuery extends BaseTwitterTweetQuery{
 					->count();
 				
 				$combinations[$i]['name'] = $name . '-' . $relName;
-				$combinations[$i]['value'] = $tweetsAmount;
+				$combinations[$i]['size'] = $tweetsAmount;
 				
 				$i++;
 			}
 		}
 		
 		return $combinations;
+	}
+	
+	public function formatForTreemap($toFormat, $parentName){
+		/*$newKeys = array('value' => 'size');
+		array_combine(array_merge($toFormat, $newKeys), $toFormat);*/
+		$formatted = array('name' => $parentName, 'children' => $toFormat);
+		
+		return json_encode($formatted);
 	}
 
 	/* Obtiene los datos para el diagrama de venn

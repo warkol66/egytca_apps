@@ -80,7 +80,7 @@
 		<div id='newChartsSection'>
 			<h4>Graficos a probar</h4>
 			|-include file="TreemapChart.tpl" personalTrends=$treemapPersonalTrends-|
-			|-include file="VennChart.tpl" vennData=$vennData-|
+			|-include file="VennChart.tpl" treemapAmount=$treemapAmount-|
 		</div>
 	 </div>
 <script type="text/javascript">
@@ -121,14 +121,14 @@
 	|-/if-|
 
 	|-if !empty($tweetsAmount)-|
-	var bubble = [|-foreach from=$tweetsAmount item=group-|{"name": "|-$group['name']-|", "value": "|-$group['value']-|"}|-if !$tweetsAmount@last-|,|-/if-||-/foreach-|];
+	var bubble = [|-foreach from=$tweetsAmount item=group-|{"name": "|-$group['name']-|", "value": "|-$group['size']-|"}|-if !$tweetsAmount@last-|,|-/if-||-/foreach-|];
 	bubbleChart(bubble);
 	|-/if-|
 	
 	|-if !empty($treemapPersonalTrends)-|
 	var personalTrends = |-$treemapPersonalTrends-|;
 	if(personalTrends.children.length > 0){
-		zoomableTreemap(personalTrends);
+		zoomableTreemap(personalTrends, 'treeMap', 1200, 700);
 	}
 	|-/if-|
 </script>

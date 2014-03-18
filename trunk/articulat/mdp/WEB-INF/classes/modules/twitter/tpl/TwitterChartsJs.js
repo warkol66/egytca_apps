@@ -289,9 +289,9 @@ function bubbleChart(arr){
 
 }
 
-function zoomableTreemap(treeInfo){
-	var w = 1200 - 80,
-	h = 700 - 180,
+function zoomableTreemap(treeInfo, divId, w, h){
+	var w = w - 80,
+	h = h - 180,
 	x = d3.scale.linear().range([0, w]),
 	y = d3.scale.linear().range([0, h]),
 	formatNumber = d3.format(",d"),
@@ -306,7 +306,7 @@ function zoomableTreemap(treeInfo){
 		.size([w, h])
 		.sticky(true)
 		.value(function(d) { return d.size; });
-	var svg = d3.select("#treeMap").append("svg")
+	var svg = d3.select("#" + divId).append("svg")
 		.attr("class", "chart")
 		.style("width", w + "px")
 		.style("height", h + "px")
