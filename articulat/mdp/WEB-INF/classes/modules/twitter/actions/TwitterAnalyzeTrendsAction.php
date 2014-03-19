@@ -55,8 +55,8 @@ class TwitterAnalyzeTrendsAction extends BaseAction {
 				$text = $tweet['TwitterTweet.Text'];
 		
 				//the all-important words of the tweet
-				$words_of_tweet = explode(" ",strtolower($text));
-				
+				$words_of_tweet = mb_split("\s", mb_strtolower($tweet['TwitterTweet.Text'], 'UTF-8'));
+
 				$userdata = array("tweet_id" => $tweet['TwitterTweet.Id'], "screen_name" => $tweet['TwitterUser.Screenname']);
 				
 				//reset/start the last word variable for this tweet
