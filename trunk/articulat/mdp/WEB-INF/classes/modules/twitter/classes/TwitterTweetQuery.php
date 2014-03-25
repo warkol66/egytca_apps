@@ -253,26 +253,6 @@ class TwitterTweetQuery extends BaseTwitterTweetQuery{
 						->select(array('female','male'))
 					->_endif();
 	}
-
-	public function countByPersonalTrend($filters, $trend){
-		$byTrend = TwitterTweetQuery::create()
-			->applyReportFilters($filters)
-			->_if(!empty($filters['value']))
-				->filterByValue($filters['value'])
-			->_endif()
-			->_if(!empty($filters['relevance']))
-				->filterByValue($filters['relevance'])
-			->_endif()
-			->withColumn('CAST(TwitterTweet.Createdat as DATE)', 'x')
-			->groupBy('TwitterTweet.x')
-			->withColumn("sum(if(TwitterTweet.Text LIKE '%$trend%', 1, 0))", 'y')
-			->select(array('x','y'))
-			->find()
-			->toArray();
-
-		return $byTrend;
-
-	}
 	
 	/* Obtiene los tweets por valor para el reporte
 	 * */
@@ -585,5 +565,25 @@ class TwitterTweetQuery extends BaseTwitterTweetQuery{
 		}
 
 		return $timelineTrends;
+	}
+	
+	public function countByPersonalTrend($filters, $trend){
+		$byTrend = TwitterTweetQuery::create()
+			->applyReportFilters($filters)
+			->_if(!empty($filters['value']))
+				->filterByValue($filters['value'])
+			->_endif()
+			->_if(!empty($filters['relevance']))
+				->filterByValue($filters['relevance'])
+			->_endif()
+			->withColumn('UNIX_TIMESTAMP(CAST(TwitterTweet.Createdat as DATE))', 'x')
+			->groupBy('TwitterTweet.x')
+			->withColumn("sum(if(TwitterTweet.Text LIKE '%$trend%', 1, 0))", 'y')
+			->select(array('x','y'))
+			->find()
+			->toArray();
+
+		return $byTrend;
+
 	}
 }

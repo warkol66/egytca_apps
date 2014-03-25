@@ -2,10 +2,22 @@
 <span class="resultFailure">No se encontró la campaña</span>
 |-else-|
 <link type="text/css" rel="stylesheet" href="css/twitterMenu.css" />
+<link href="scripts/nvd3/nv.d3.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" media="all" type="text/css" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 <link type="text/css" rel="stylesheet" href="scripts/jquery/jqueryTimepicker/src/jquery-ui-timepicker-addon.css" />
 <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+<!--Para timeline-->
+<script src="scripts/nvd3/nv.d3.js"></script>
+<script src="scripts/nvd3/src/tooltip.js"></script>
+<script src="scripts/nvd3/src/utils.js"></script>
+<script src="scripts/nvd3/src/models/legend.js"></script>
+<script src="scripts/nvd3/src/models/axis.js"></script>
+<script src="scripts/nvd3/src/models/scatter.js"></script>
+<script src="scripts/nvd3/src/models/line.js"></script>
+<script src="scripts/nvd3/src/models/lineWithFocusChart.js"></script>
+<script src="scripts/nvd3/examples/stream_layers.js"></script>
 <script src="scripts/venn.js" charset="utf-8"></script>
+
 <script src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 <script src="scripts/jquery/jquery.min.js" charset="utf-8"></script>
 <script src="scripts/jquery/jquery-ui-1.10.3.custom.min.js" charset="utf-8"></script>
