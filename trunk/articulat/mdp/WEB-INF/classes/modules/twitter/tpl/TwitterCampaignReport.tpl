@@ -81,6 +81,7 @@
 			<h4>Graficos a probar</h4>
 			|-include file="TreemapChart.tpl" personalTrends=$treemapPersonalTrends-|
 			|-include file="VennChart.tpl" treemapAmount=$treemapAmount-|
+			|-include file="TimelineChart.tpl" byPersonalTrends=$byPersonalTrends-|
 		</div>
 	 </div>
 <script type="text/javascript">
@@ -102,7 +103,6 @@
 	|-if !empty($byRelevance)-|
 	var arrByRelevance = [|-foreach from=$byRelevance item=pos-|{"Fecha":"|-$pos['date']|date_format:'%d-%m-%Y'-|","Relevantes":"|-$pos['relevant']-|","Neutros":"|-$pos['neutrally_relevant']-|","Irrelevantes":"|-$pos['irrelevant']-|"}|-if !$byValue@last-|,|-/if-||-/foreach-|];
 	barChart(arrByRelevance,'byRelevanceChart');
-	console.log(arrByRelevance);
 	|-/if-|
 	
 	|-if !empty($byGender[0])-|
