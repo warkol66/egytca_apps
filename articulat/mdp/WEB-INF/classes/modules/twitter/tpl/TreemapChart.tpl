@@ -1,5 +1,6 @@
 <div id="treeMapNew"></div>
 <script type="text/javascript">
+|-if !empty($personalTrends)-|
 var pTrends = |-$personalTrends-|;
 	if(pTrends.children.length > 0){
 		var treemap = d3.layout.treemap()
@@ -13,4 +14,5 @@ var pTrends = |-$personalTrends-|;
 
 		zoomableTreemapHeaders(pTrends, treemap);
 	}
+|-/if-|
 </script>
