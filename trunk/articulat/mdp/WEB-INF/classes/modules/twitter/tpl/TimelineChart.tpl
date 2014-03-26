@@ -1,5 +1,3 @@
-
-
 <div id="chart" class='with-3d-shadow with-transitions'>
 	<svg style="height: 500px; width: 1000px;"></svg>
 </div>
@@ -11,13 +9,14 @@
 
 		// chart.transitionDuration(500);
 		chart.xAxis
+			.axisLabel('fecha')
             .tickFormat(function(d) { return d3.time.format('%x')(new Date(d * 1000)) });
         chart.x2Axis
             .tickFormat(function(d) { return d3.time.format('%x')(new Date(d * 1000)) });
 
-		/*chart.yAxis
-		  .tickFormat(d3.format(',.2f'));
-		chart.y2Axis
+		chart.yAxis
+			.axisLabel('cantidad');
+		/*chart.y2Axis
 		  .tickFormat(d3.format(',.2f'));*/
 		  
 		chart.tooltipContent(function(key, y, e, graph) {
