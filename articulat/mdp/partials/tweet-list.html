@@ -1,0 +1,22 @@
+<p>Buscar por texto: <input ng-model="query"></p>
+<p>Usted está filtrando por: {{query}}</p>
+<title>{{query}}</title>
+<table class='tableTdBorders' cellpadding='5' cellspacing='0' width='100%'>
+	<thead>
+		<tr>
+			<th>Texto</th>
+			<th>Fecha</th>
+			<th>&nbsp;</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="tweet in tweets | filter:query | orderBy:order">
+			<td>{{tweet.Text | limitTo: 50}}...</td>
+			<td>{{tweet.Createdat}}</td>
+			<td>
+				<a href="#/tweets/{{tweet.Id}}" class="icon iconView">view</a>
+				<a href="javascript:void(null)" ng-click="delete(tweet)" class="icon iconDelete">delete</a>
+			</td>
+		</tr>
+	</tbody>
+</table>

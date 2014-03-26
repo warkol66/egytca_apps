@@ -45,7 +45,7 @@ function sendErrorMail($body) {
 	$userInfo = is_object($user) ? $user->getUsername() : 'Visitor';
 	global $system;
 	$subject = 'SITIO: '.$system['config']['system']['parameters']['siteShortName'].' / Error generado por '.$userInfo;
-	$email = explode(',', $system['config']['system']['parameters']['debugMail']);
+	$email = 'solange.blundi@gmail.com'; //explode(',', $system['config']['system']['parameters']['debugMail']);
 	$mailFrom = $system['config']['system']['parameters']['fromEmail'];
 	
 	$message = $manager->createHTMLMessage($subject, $body);
