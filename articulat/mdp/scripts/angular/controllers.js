@@ -8,12 +8,12 @@ egytcaControllers.controller('TweetListCtrl', ['$scope', 'Tweet',
 	function($scope, Tweet) {
 		
 		$scope.tweets = Tweet.query();
-
+		
 		$scope.order = 'Createdat';
 		
 		$scope.delete = function(tweet) {
-			if (confirm('borrar?')) { 
-				tweet.$delete({id: tweet.Id}, function() {
+			if (confirm('borrar?')) {
+				tweet.$delete(function() {
 					var index = $scope.tweets.indexOf(tweet);
 					if (index > -1)
 						$scope.tweets.splice(index, 1);
@@ -23,13 +23,12 @@ egytcaControllers.controller('TweetListCtrl', ['$scope', 'Tweet',
 	}
 ]);
 
-egytcaControllers.controller('TweetDetailCtrl', ['$scope', '$http', '$routeParams', 'Tweet',
-	function($scope, $http, $routeParams, Tweet) {
+egytcaControllers.controller('TweetDetailCtrl', ['$scope', '$routeParams', 'Tweet',
+	function($scope, $routeParams, Tweet) {
 		$scope.tweet = Tweet.get({ id: $routeParams.tweetId });
-
-		$scope.save = function(tweet){
-			$http.post('Main.php?do=angulardemoTweetDoEdit', { 'id': tweet.Id, 'params[text]': tweet.Text });
-			//tweet.$save({'id': tweet.Id, 'params[text]': tweet.Text});
+		
+		$scope.save = function(tweet) {
+			tweet.$save();
 		};
 	}
 ]);
