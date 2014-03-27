@@ -1,6 +1,22 @@
 <a href="#tweets">atrás</a>
 <br />
 <form id="tweetEditForm" ng-submit="save(tweet)">
-	<textarea cols="50" rows="5" name="params[text]" ng-model="tweet.Text"></textarea>
+	
+	<p>
+		<label>Status</label>
+		<input ng-model="tweet.Status">
+	</p>
+	<p>
+		<label>Value</label>
+		<input ng-model="tweet.Value">
+	</p>
+	<p>
+		<label>Relevance</label>
+		<input ng-model="tweet.Relevance">
+	</p>
+	<p>
+		<label>Text</label>
+		<textarea cols="50" rows="5" name="params[text]" ng-model="tweet.Text"></textarea>
+	</p>
 	<input type="submit" id="submit" value="Guardar"/>
 </form>

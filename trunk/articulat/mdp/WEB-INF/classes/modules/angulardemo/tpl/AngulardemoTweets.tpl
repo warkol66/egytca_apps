@@ -4,7 +4,6 @@
 <script src="scripts/angular/app.js"></script>
 <script src="scripts/angular/controllers.js"></script>
 <script src="scripts/angular/services.js"></script>
-<script src="scripts/jquery/jquery.min.js"></script>
 <div ng-app="egytcaApp">
 	<div ng-view></div>
 </div>
