@@ -42,27 +42,28 @@
 
 		return chart;	
 	});*/
-	
-var colors = d3.scale.category20();
-keyColor = function(d, i) {return colors(d.key)};
-
-var chart;
 
 nv.addGraph(function() {
   var chart = nv.models.lineChart()
-                  .color(keyColor);
+    .useInteractiveGuideline(true)
+    ;
 
   chart.xAxis
-      .tickFormat(function(d) { return d3.time.format('%x')(new Date(d * 1000)) });
+    .axisLabel('Fecha')
+    .tickFormat(function(d) { return d3.time.format('%x')(new Date(d * 1000)) });
+
+  chart.yAxis
+    .axisLabel('Tendencias')
+    .tickFormat(d3.format('.'));
 
   d3.select('#chart svg')
     .datum(|-$byPersonalTrends-|)
-    .transition()
+    .transition().duration(500)
     .call(chart);
 
-   nv.utils.windowResize(chart.update);
+  nv.utils.windowResize(chart.update);
 
-   return chart;
- });
+  return chart;
+});
 |-/if-|
 </script>
