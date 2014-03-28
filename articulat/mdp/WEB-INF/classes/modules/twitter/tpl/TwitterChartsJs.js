@@ -308,8 +308,8 @@ function zoomableTreemap(treeInfo, divId, w, h){
 			"Neutro-Relevante", "Neutro-Medianamente relevante", "Neutro-Irrelevante",
 			"Negativo-Relevante", "Negativo-Medianamente relevante", "Negativo-Irrelevante"])
 			.range(["#006cff", "#72aeff", "#daeaff",
-			"#fff600", "#fffb81", "#fffedd",
-			"#ff0000", "#ff7777", "fdcdcd"]);
+			"#fff600", "#fff833", "#fffa66",
+			"#ff6666", "#ff3333", "#ff0000"]);
 	}
 	var treemap = d3.layout.treemap()
 		.round(false)

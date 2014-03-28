@@ -558,6 +558,11 @@ class TwitterTweetQuery extends BaseTwitterTweetQuery{
 		$timelineTrends = array();
 		$i = 0;
 
+		// obtengo las fechas de la campaign
+		$campaign = campaignQuery::create()->findOneById($twitterFilters['campaign']);
+		$startDate = $campaign->getStartDate();
+		$endDate = $campaign->getFinishdate();
+
 		foreach($personalTrends as $trend => $details){
 			$timelineTrends[$i]['key'] = $trend;
 			$timelineTrends[$i]['values'] = TwitterTweetQuery::countByPersonalTrend($twitterFilters, $trend);
@@ -587,3 +592,5 @@ class TwitterTweetQuery extends BaseTwitterTweetQuery{
 
 	}
 }
+
+// 
