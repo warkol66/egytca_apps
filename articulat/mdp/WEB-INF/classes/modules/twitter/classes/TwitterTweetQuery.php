@@ -567,6 +567,8 @@ class TwitterTweetQuery extends BaseTwitterTweetQuery{
 			$timelineTrends[$i]['key'] = $trend;
 			$timelineTrends[$i]['values'] = TwitterTweetQuery::countByPersonalTrend($twitterFilters, $trend);
 			$i++;
+			if($i == 10)
+				break;
 		}
 
 		return $timelineTrends;

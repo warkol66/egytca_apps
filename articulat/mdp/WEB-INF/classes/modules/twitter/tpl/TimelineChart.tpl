@@ -1,5 +1,5 @@
 <div id="chart" class='with-3d-shadow with-transitions'>
-	<svg style="height: 800px; width: 1100px;"></svg>
+	<svg style="height: 500px; width: 1000px;"></svg>
 </div>
 
 <script type="text/javascript">
