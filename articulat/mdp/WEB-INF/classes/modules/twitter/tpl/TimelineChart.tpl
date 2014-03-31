@@ -2,27 +2,25 @@
 	<svg style="height: 500px; width: 1000px;"></svg>
 </div>
 
-<script type="text/javascript">
 |-if !empty($byPersonalTrends)-|
-
+<script type="text/javascript">
 var byPersonalTrends = |-$byPersonalTrends-|;
 var maxTTs = 0;
 
 for (var i=0; i<byPersonalTrends.length; i++) {
 	var obj = byPersonalTrends[i]['values'];
     for(var j=0; j<obj.length; j++){
-    	var value = obj[j]['y'];
-        if(value > maxTTs){
+    	var value = parseInt(obj[j]['y']);
+    	if(value > maxTTs){
         	maxTTs = value;
-        	console.log(maxTTs);
-        }
+       }
     }
 }
 
 nv.addGraph(function() {
   var chart = nv.models.lineChart()
     .useInteractiveGuideline(true)
-    .forceY([0,maxTTs]);
+    .forceY([0,maxTTs+1]);
 
   chart.xAxis
     .axisLabel('Fecha')
@@ -41,5 +39,6 @@ nv.addGraph(function() {
 
   return chart;
 });
-|-/if-|
+
 </script>
+|-/if-|
