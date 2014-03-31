@@ -4,8 +4,9 @@
   <svg style="height: 500px; width: 1000px;"></svg>
 </div>
 
-<script type="text/javascript">
+
 |-if !empty($dailyPersonalTrends) and !empty($dailyTweets)-|
+<script type="text/javascript">
 $j(function(){
     $j('#timelineTrends').click(function(){
         if($j('#timelineTrends').attr('checked')){
@@ -30,11 +31,8 @@ function timelineChart(dailyTweets){
     var obj = dailyTweets[i]['values'];
       for(var j=0; j<obj.length; j++){
         var value = parseInt(obj[j]['y']);
-        console.log('value:' + value);
-        console.log('maxtts:' + maxTTs);
           if(value > maxTTs){
-            maxTTs = value;
-            console.log('max actual:' + maxTTs);
+            maxTTs = value + 1;
           }
       }
   }
@@ -62,5 +60,5 @@ function timelineChart(dailyTweets){
     return chart;
   });
 }
-|-/if-|
 </script>
+|-/if-|
