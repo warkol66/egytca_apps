@@ -97,8 +97,10 @@ class TwitterCampaignsReportFilterXAction extends BaseEditAction {
 				$personalTrends = TwitterTweetQuery::getPersonalTrends($tweetsFilters, $treemapInfo);
 				$this->smarty->assign("personalTrends",$personalTrends);
 				$this->smarty->assign("treemapPersonalTrends",json_encode($treemapInfo));
-				$byPersonalTrends = TwitterTweetQuery::getTimelineTrends($tweetsFilters, $personalTrends);
-				$this->smarty->assign('byPersonalTrends',json_encode($byPersonalTrends));
+				$dailyPersonalTrends = TwitterTweetQuery::dailyPersonalTrends($tweetsFilters, $personalTrends);
+				$this->smarty->assign('dailyPersonalTrends',json_encode($dailyPersonalTrends));
+				$dailyTweets = TwitterTweetQuery::dailyTweets($tweetsFilters);
+				$this->smarty->assign('dailyTweets',json_encode($dailyTweets));
 				
 				$usersAmount = TwitterTweetQuery::getUsersAmount($tweetsFilters);
 				$this->smarty->assign('usersAmount',$usersAmount);

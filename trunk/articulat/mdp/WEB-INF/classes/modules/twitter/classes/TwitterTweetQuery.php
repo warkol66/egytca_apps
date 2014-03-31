@@ -553,7 +553,7 @@ class TwitterTweetQuery extends BaseTwitterTweetQuery{
 	
 	}
 
-	public function getTimelineTrends($twitterFilters, $personalTrends){
+	public function dailyPersonalTrends($twitterFilters, $personalTrends){
 
 		$timelineTrends = array();
 		$i = 0;
@@ -591,6 +591,28 @@ class TwitterTweetQuery extends BaseTwitterTweetQuery{
 			->toArray();
 
 		return $byTrend;
+
+	}
+
+	public function dailyTweets($filters){
+		$tweets = TwitterTweetQuery::create()
+			->applyReportFilters($filters)
+			->_if(!empty($filters['value']))
+				->filterByValue($filters['value'])
+			->_endif()
+			->_if(!empty($filters['relevance']))
+				->filterByValue($filters['relevance'])
+			->_endif()
+			->withColumn('UNIX_TIMESTAMP(CAST(TwitterTweet.Createdat as DATE))', 'x')
+			->groupBy('TwitterTweet.x')
+			->withColumn("count(DISTINCT TwitterTweet.Id)", 'y')
+			->select(array('x','y'))
+			->find()
+			->toArray();
+
+		$dailyTweets = array(array('key' => 'tweets', 'values' => $tweets));
+
+		return $dailyTweets;
 
 	}
 }
