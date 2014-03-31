@@ -77,9 +77,11 @@ class TwitterCampaignsReportViewAction extends BaseEditAction {
 				$treemapInfo = array();
 				$personalTrends = TwitterTweetQuery::getPersonalTrends($tweetsFilters, $treemapInfo);
 				$this->smarty->assign('personalTrends',$personalTrends);
-				$byPersonalTrends = TwitterTweetQuery::getTimelineTrends($tweetsFilters, $personalTrends);
-				$this->smarty->assign('byPersonalTrends',json_encode($byPersonalTrends));
-				/*echo"<pre>"; print_r(json_encode(TwitterTweetQuery::getTimelineTrends($tweetsFilters, $personalTrends))); echo"</pre>";
+				$dailyPersonalTrends = TwitterTweetQuery::dailyPersonalTrends($tweetsFilters, $personalTrends);
+				$this->smarty->assign('dailyPersonalTrends',json_encode($dailyPersonalTrends));
+				$dailyTweets = TwitterTweetQuery::dailyTweets($tweetsFilters);
+				$this->smarty->assign('dailyTweets',json_encode($dailyTweets));
+				/*echo"<pre>"; print_r(json_encode(TwitterTweetQuery::dailyTweets($tweetsFilters))); echo"</pre>";
 				die();*/
 				$this->smarty->assign('treemapPersonalTrends',json_encode($treemapInfo));
 				/*echo"<pre>"; print_r(json_encode($treemapInfo)); echo"</pre>";

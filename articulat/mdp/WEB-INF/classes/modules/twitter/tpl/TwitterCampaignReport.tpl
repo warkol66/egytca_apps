@@ -81,7 +81,7 @@
 			<h4>Graficos a probar</h4>
 			|-include file="TreemapChart.tpl" personalTrends=$treemapPersonalTrends-|
 			|-include file="VennChart.tpl" treemapAmount=$treemapAmount-|
-			|-include file="TimelineChart.tpl" byPersonalTrends=$byPersonalTrends-|
+			|-include file="TimelineChart.tpl" dailyPersonalTrends=$dailyPersonalTrends dailyTweets=$dailyTweets-|
 		</div>
 	 </div>
 <script type="text/javascript">
