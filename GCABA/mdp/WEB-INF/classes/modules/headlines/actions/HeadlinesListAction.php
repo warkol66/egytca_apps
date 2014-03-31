@@ -57,7 +57,7 @@ class HeadlinesListAction extends BaseAction {
 				$filters["broodIssues"] = $_GET['filters']['issueId'];
 
 		if (empty($_GET['filters'])) {
-			$fromDate = new DateTime("first day of last month");
+			$fromDate = new DateTime("first day of -2 month");
 			$_GET['filters']['fromDate'] = $fromDate->format('d-m-Y');
 			$filters['fromDate'] = $_GET['filters']['fromDate'];
 		}
