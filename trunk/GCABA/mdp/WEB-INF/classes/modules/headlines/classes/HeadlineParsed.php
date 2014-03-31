@@ -92,8 +92,12 @@ class HeadlineParsed extends BaseHeadlineParsed {
      * @return  boolean
      */
     public function preInsert(PropelPDO $con = null) {
-        $this->setStatus(HeadlineParsedQuery::STATUS_IDLE);
-        return true;
+			$this->setStatus(HeadlineParsedQuery::STATUS_IDLE);
+			if (is_null($this->getDatepublished()))
+				$this->setDatepublished(time());
+			if (is_null($this->getHeadlinedate()))
+				$this->setHeadlinedate(time());
+			return true;
     }
     
     /**
