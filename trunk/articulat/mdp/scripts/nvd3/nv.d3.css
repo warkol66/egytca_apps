@@ -768,3 +768,7 @@ Interactive Layer
 .nvd3 line.nv-guideline {
   stroke: #ccc;
 }
+
+.nv-x .tick:not(.zero) line {
+  display: none;
+}
