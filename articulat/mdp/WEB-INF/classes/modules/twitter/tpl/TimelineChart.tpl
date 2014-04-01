@@ -50,7 +50,7 @@ function timelineChart(dailyTweets){
       .axisLabel('# Tweets')
       .tickFormat(d3.format('.'));
 
-    d3.select('#chart svg')
+    d3.select('#timeline svg')
       .datum(dailyTweets)
       .transition().duration(500)
       .call(chart);

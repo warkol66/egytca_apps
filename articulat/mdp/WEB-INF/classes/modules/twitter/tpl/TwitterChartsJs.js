@@ -411,7 +411,7 @@ function zoomableTreemapHeaders(treeInfo, treemap){
 
     var jsonData = treeInfo;
 
-    var chart = d3.select("#treeMapNew").append("div")
+    var chart = d3.select("#treeMap").append("div")
             .append("svg:svg")
             .attr("width", chartWidth)
             .attr("height", chartHeight)
@@ -707,3 +707,40 @@ function zoomableTreemapHeaders(treeInfo, treemap){
 	};
 }
     
+function timelineChart(dailyTweets){
+  
+  var maxTTs = 0;
+
+  for (var i=0; i<dailyTweets.length; i++) {
+    var obj = dailyTweets[i]['values'];
+      for(var j=0; j<obj.length; j++){
+        var value = parseInt(obj[j]['y']);
+          if(value > maxTTs){
+            maxTTs = value + 1;
+          }
+      }
+  }
+
+  nv.addGraph(function() {
+    var chart = nv.models.lineChart()
+      .useInteractiveGuideline(true)
+      .forceY([0,maxTTs]);
+
+    chart.xAxis
+      .axisLabel('Fecha')
+      .tickFormat(function(d) { return d3.time.format('%x')(new Date(d * 1000)) });
+
+    chart.yAxis
+      .axisLabel('# Tweets')
+      .tickFormat(d3.format('.'));
+
+    d3.select('#timeline svg')
+      .datum(dailyTweets)
+      .transition().duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+}

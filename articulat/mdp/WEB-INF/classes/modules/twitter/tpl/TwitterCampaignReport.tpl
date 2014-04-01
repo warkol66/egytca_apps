@@ -77,11 +77,17 @@
 			<div id="treeMap">
 			</div>
 		</div>
+		<div id='timelineSection'>
+			<h4>Línea de tiempo</h4>
+			<input type="checkbox" id="timelineTrends" value"trends" />Ver tendencias
+			<div id="timeline" class='with-3d-shadow with-transitions'>
+				<svg style="height: 500px; width: 1000px;"></svg>
+			</div>
+			</div>
+		</div>
 		<div id='newChartsSection'>
 			<h4>Graficos a probar</h4>
-			|-include file="TreemapChart.tpl" personalTrends=$treemapPersonalTrends-|
 			|-include file="VennChart.tpl" treemapAmount=$treemapAmount-|
-			|-include file="TimelineChart.tpl" dailyPersonalTrends=$dailyPersonalTrends dailyTweets=$dailyTweets-|
 		</div>
 	 </div>
 <script type="text/javascript">
@@ -91,6 +97,21 @@
 		$j('#appliedFilters').append(applied);
 		
 		$j('#byValueMessage').html('');
+
+		|-if !empty($dailyPersonalTrends) and !empty($dailyTweets)-|
+		$j('#timelineTrends').click(function(){
+	        if($j('#timelineTrends').attr('checked')){
+	          var dailyTweets = |-$dailyPersonalTrends-|;
+	          timelineChart(dailyTweets);
+	        }
+	        else{
+	          var dailyTweets = |-$dailyTweets-|;
+	          timelineChart(dailyTweets);
+	        }
+	    });
+
+	    timelineChart(|-$dailyTweets-|);
+	    |-/if-|
 		
 	});
 	
@@ -126,9 +147,18 @@
 	|-/if-|
 	
 	|-if !empty($treemapPersonalTrends)-|
-	var personalTrends = |-$treemapPersonalTrends-|;
-	if(personalTrends.children.length > 0){
-		zoomableTreemap(personalTrends, 'treeMap', 1200, 700);
+	var pTrends = |-$treemapPersonalTrends-|;
+	if(pTrends.children.length > 0){
+		var treemap = d3.layout.treemap()
+		.round(false)
+		.size([1200 - 80, 700 - 180])
+		.sticky(true)
+		.padding([20 + 1, 1, 1, 1])
+		.value(function(d) {
+			return d.size;
+		});
+
+		zoomableTreemapHeaders(pTrends, treemap);
 	}
 	|-/if-|
 </script>
