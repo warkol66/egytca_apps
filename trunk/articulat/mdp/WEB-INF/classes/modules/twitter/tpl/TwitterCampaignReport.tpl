@@ -99,18 +99,46 @@
 		$j('#byValueMessage').html('');
 
 		|-if !empty($dailyPersonalTrends) and !empty($dailyTweets)-|
+
+		var dailyTrends = |-$dailyPersonalTrends-|;
+		var dailyTweets = |-$dailyTweets-|;
+
+		max = 0;
+
+		for (var i=0; i<dailyTweets.length; i++) {
+		var obj = dailyTweets[i]['values'];
+		  for(var j=0; j<obj.length; j++){
+		    var value = parseInt(obj[j]['y']);
+		      if(value > max){
+		        max = value + 1;
+		      }
+		  }
+		}
+
+		for (var i=0; i<dailyTrends.length; i++) {
+		var obj = dailyTrends[i]['values'];
+		  for(var j=0; j<obj.length; j++){
+		    var value = parseInt(obj[j]['y']);
+		      if(value > max){
+		        max = value + 1;
+		      }
+		  }
+		}
+
 		$j('#timelineTrends').click(function(){
 	        if($j('#timelineTrends').attr('checked')){
-	          var dailyTweets = |-$dailyPersonalTrends-|;
-	          timelineChart(dailyTweets);
+	        	$j('#chart svg').html('');
+	          	timelineChart(dailyTrends, max);
 	        }
 	        else{
-	          var dailyTweets = |-$dailyTweets-|;
-	          timelineChart(dailyTweets);
+	        	$j('#chart svg').html('');
+	          	timelineChart(dailyTweets, max);
 	        }
 	    });
 
-	    timelineChart(|-$dailyTweets-|);
+	    
+
+	    timelineChart(|-$dailyTweets-|, max);
 	    |-/if-|
 		
 	});

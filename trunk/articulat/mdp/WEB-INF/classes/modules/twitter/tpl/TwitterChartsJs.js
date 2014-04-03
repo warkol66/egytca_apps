@@ -707,24 +707,12 @@ function zoomableTreemapHeaders(treeInfo, treemap){
 	};
 }
     
-function timelineChart(dailyTweets){
-  
-  var maxTTs = 0;
-
-  for (var i=0; i<dailyTweets.length; i++) {
-    var obj = dailyTweets[i]['values'];
-      for(var j=0; j<obj.length; j++){
-        var value = parseInt(obj[j]['y']);
-          if(value > maxTTs){
-            maxTTs = value + 1;
-          }
-      }
-  }
+function timelineChart(dailyTweets, max){
 
   nv.addGraph(function() {
     var chart = nv.models.lineChart()
       .useInteractiveGuideline(true)
-      .forceY([0,maxTTs]);
+      .forceY([0,max]);
 
     chart.xAxis
       .axisLabel('Fecha')
