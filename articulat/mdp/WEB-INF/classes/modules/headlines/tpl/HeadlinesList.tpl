@@ -1,3 +1,6 @@
+<link type="text/css" href="css/chosen.css" rel="stylesheet">
+<script language="JavaScript" type="text/javascript" src="scripts/event.simulate.js"></script>
+<script language="JavaScript" type="text/javascript" src="scripts/chosen.js"></script>
 |-include file="CommonAutocompleterInclude.tpl"-|
 <script>
 
@@ -50,9 +53,30 @@
 		for(i=0;i<j;i++) {
 			form.appendChild(hidden[i]);	
 		}
-		
 		return true;
+	}
+
+	function updateTags(options, form) {
+
+		buildMultipleItemsForm(form, 'headlinesIds[]');
+		// Cargar selecionados
+		postParams = "";
+		for (var i=0; i < options.length; i++) {
+			if (options[i].selected)
+				postParams += "&selectedIds[]="+options[i].value;
+		}
+
+		console.log(Form.serialize(form) + postParams);
 		
+		new Ajax.Updater(
+			"",
+			url,
+			{
+				method: 'post',
+				postBody: Form.serialize(form) + postParams,
+				evalScripts: true
+			});
+		return true;
 	}
 </script>
 <h2>##headlines,1,Titulares##</h2>
@@ -68,7 +92,7 @@
 	<table id="tabla-headlines" class='tableTdBorders' cellpadding='5' cellspacing='0' width='100%'> 
 		<thead> 
 		<tr>
-			<td colspan="8" class="tdSearch"><a href="javascript:void(null);" onClick='switch_vis("divSearch");' class="tdTitSearch">Busqueda de ##headlines,1,Titulares## </a>
+			<td colspan="9" class="tdSearch"><a href="javascript:void(null);" onClick='switch_vis("divSearch");' class="tdTitSearch">Busqueda de ##headlines,1,Titulares## </a>
 				<div id="divSearch" style="display:|-if $filters|@count gt 0-|block|-else-|none|-/if-|;"><form action='Main.php' method='get' style="display:inline;">
 					<input type="hidden" name="do" value="headlinesList" />
 					<label for="filters[searchString]">Buscar</label>
@@ -129,9 +153,24 @@
 				|-if $filters|@count gt 0-|<input name="rmoveFilters" type="button" value="Quitar filtros" onclick="location.href='Main.php?do=headlinesList'"/>|-/if-|</p>
 			</form>
 		</div></td>
+		<tr>
+			<td colspan="9"><a href="javascript:void(null);" onClick='switch_vis("tagEdit");' class="tdTit">Etiquetas</a>
+				<div id="tagEdit">
+					<form method="post" id="form_tags" style="display:inline;">
+					<input type="hidden" name="action" value="tags" />
+					<input type="hidden" name="do" value="headlinesProcessMultipleX" />
+					<select class="chzn-select wide-chz-select" data-placeholder="Seleccione una o varias etiquetas..." id="tagsIds" size="5" multiple="multiple" onChange="updateTags(this.options, this.form)">
+						|-foreach from=$headlineTags item=headlineTag name=for_headlineTags-|
+			        		<option value="|-$headlineTag->getId()-|" >|-$headlineTag->getName()-|</option>
+						|-/foreach-|
+					</select>
+					</form>
+				</div>
+			</td>
+		</tr>
 		</tr>
 			|-if "headlinesEdit"|security_has_access-|<tr>
-				 <th colspan="8" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=headlinesEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar ##headlines,2,Titular##</a></div></th>
+				 <th colspan="9" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=headlinesEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar ##headlines,2,Titular##</a></div></th>
 			</tr>|-/if-|
 			<tr class="thFillTitle"> 
 				<th width="2%"><input type="checkbox" name="allbox" value="checkbox" id="allBoxes" onChange="javascript:selectAllCheckboxes()" title="Seleccionar todos" /></th>
