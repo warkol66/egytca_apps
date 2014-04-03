@@ -20,14 +20,20 @@ class HeadlinesProcessMultipleXAction extends BaseAction {
 
 		$module = "Headlines";
 		$smarty->assign("module",$module);
+		$smarty->assign("action",$_POST['action']);
+
+		$headlines = $_POST['headlinesIds'];
 		
-		if (!empty($_POST['headlinesIds'])) {
+		if (!empty($headlines)) {
 			switch ($_POST['action']) {
 				case 'delete':
 					HeadlineQuery::create()
 						->filterById($_POST['headlinesIds'])
 						->delete();
 					$smarty->assign('headlinesIds', $_POST['headlinesIds']);
+					break;
+				case 'tags':
+					Headline::addTagsToMultiple($headlines, $_POST["selectedIds"]);
 					break;
 				default:
 					# code...

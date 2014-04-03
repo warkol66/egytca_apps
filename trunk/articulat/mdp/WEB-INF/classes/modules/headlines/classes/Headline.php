@@ -461,6 +461,65 @@ class Headline extends BaseHeadline {
 		return $agendasTranslated[$this->getAgenda()];
 	}
 
+	public function arrayHasTag($array, $tag) {
+		foreach ($array as $e) {
+			if ($e->getId() == $tag->getId())
+				return true;
+		}
+		return false;
+	}
+	
+	public function addTag($headline, $tag) {
+		if (!($headline->hasHeadlineTag($tag))) {
+			$headline->addHeadlineTag($tag);
+			if (!$headline->save()) {
+				$smarty->assign('message', 'failure');
+			} 
+		}
+	}
+	
+	public function removeTag($headline, $tag) {
+		
+		$headline = HeadlineQuery::create()->findOneById($_POST["headlineId"]);
+		$relation = HeadlineTagRelationQuery::create()->filterByHeadline($headline)->filterByHeadlineTag($tag)->findOne();
+		
+		if (!empty($relation))
+			try {
+				$relation->delete();
+			}
+			catch (PropelException $exp) {
+				if (ConfigModule::get("global","showPropelExceptions"))
+					print_r($exp->getMessage());
+			}
+	}
+
+	public function addTagsToMultiple($headlines, $tags){
+		foreach ($headlines as $headlineId) {
+			
+			$headline = HeadlineQuery::create()->findOneById($headlineId);
+			//$tagsIds = $tags;
+			$selectedTags = array();
+			
+			foreach ($tags as $tagId) {
+				array_push($selectedTags, HeadlineTagQuery::create()->findOneById($tagId));
+			}
+			$associatedTags = $headline->getHeadlineTags();
+			
+			// Quitar los tags que sobren
+			foreach ($associatedTags as $e) {
+				if (!Headline::arrayHasTag($selectedTags, $e))
+					Headline::removeTag($headline, $e);
+			}
+			
+			// Agregar los tags que falten
+			foreach ($selectedTags as $e) {
+				if (!Headline::arrayHasTag($associatedTags, $e))
+					Headline::addTag($headline, $e);
+			}
+		}
+		return 0;
+	}
+
 } // Headline
 
 

@@ -84,6 +84,8 @@ class HeadlinesListAction extends BaseAction {
 		$smarty->assign("headlines",$pager->getResults());
 		$smarty->assign("pager",$pager);
 
+		$smarty->assign('headlineTags',HeadlineTagQuery::create()->find());
+
 		$url = "Main.php?do=headlinesList";
 		foreach ($filters as $key => $value)
 			$url .= "&filters[$key]=$value";
