@@ -1,7 +1,64 @@
 |-include file="CommonAutocompleterInclude.tpl"-|
+<script>
+
+  	function selectAllCheckboxes(name) {
+	
+		if(name == null)
+			var checkboxes = document.getElementsByName('selected[]');
+		else
+			var checkboxes = document.getElementsByName(name);
+		var allbox = document.getElementById('allBoxes');
+		for (i=0;i<checkboxes.length;i++) {
+			checkboxes[i].checked = allbox.checked;
+		}
+	}
+
+	function deleteMultipleHeadlines(form) {
+		buildMultipleItemsForm(form, 'headlinesIds[]');
+		{new Ajax.Updater("resultDiv", url, { method: "post", parameters: Form.serialize(form), evalScripts: true})};
+		$("resultDiv").innerHTML = '<span class="inProgress">eliminando titulares...</span>';
+	}
+
+	function buildMultipleItemsForm(formId, name) {
+		
+		var form = $(formId);
+		
+		//elimino elementos que puedan existir en el form anteriormente
+		toDelete = form.childElements();
+		
+		var i;
+		for (i=0;i<toDelete.length; i++) {
+			if (toDelete[i].name == 'selected[]')
+				toDelete[i].remove();
+		}
+		
+		//armo el formulario con los elementos seleccionados
+		var checkboxes = document.getElementsByName('selected[]');
+		var checkLen = checkboxes.length;
+		var hidden = Array();
+		var j = 0;
+		for(i=0;i<checkLen;i++) {
+			if (checkboxes[i].checked == true) {
+				
+				hidden[j] = document.createElement('input');
+				hidden[j].setAttribute('type','hidden');
+				hidden[j].setAttribute('name',name);
+				hidden[j].setAttribute('value',checkboxes[i].value);
+				j++;
+			}
+		}
+		for(i=0;i<j;i++) {
+			form.appendChild(hidden[i]);	
+		}
+		
+		return true;
+		
+	}
+</script>
 <h2>##headlines,1,Titulares##</h2>
 <h1>Administración de ##headlines,1,Titulares##</h1>
 <p>A continuación se muestra la lista de ##headlines,1,Titulares## cargados en el sistema.</p>
+<div id="resultDiv"></div>
 <div id="div_headlines"> 
 	|-if $message eq "ok"-|
 		<div class="successMessage">##headlines,2,Titulares## guardado correctamente</div>
@@ -77,7 +134,15 @@
 				 <th colspan="8" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=headlinesEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar ##headlines,2,Titular##</a></div></th>
 			</tr>|-/if-|
 			<tr class="thFillTitle"> 
-				<th width="1%">&nbsp;</th> 
+				<th width="2%"><input type="checkbox" name="allbox" value="checkbox" id="allBoxes" onChange="javascript:selectAllCheckboxes()" title="Seleccionar todos" /></th>
+				<th width="1%">
+					|-if "headlinesDoDelete"|security_has_access-|<form action="Main.php" method="post" style="display:inline;"> 
+					<input type="hidden" name="do" value="headlinesProcessMultipleX" /> 
+					<input type="hidden" name="action" value="delete" /> 
+					<input type="button" name="submit_go_delete_headlines" value="Borrar" title="Eliminar" onclick="javascript: if(confirm('Seguro que desea eliminar los headlines?')){ deleteMultipleHeadlines(this.form); } return false;" class="icon iconDelete" /> 
+					</form>
+					|-/if-|
+				</th> 
 				<th width="20%">##headlines,2,Titulares##</th> 
 				<th width="8%">Fecha</th> 
 				<th width="10%">Medio</th> 
@@ -94,6 +159,7 @@
 	|-else-|
 		|-foreach from=$headlines item=headline name=for_headlines-|
 		<tr> 
+			<td align="center"><input type="checkbox" name="selected[]" value="|-$headline->getId()-|"></td>
 				<td nowrap="nowrap"|-if $headline->processed()-| class="processed"|-/if-|>|-if $headline->getUrl() ne ''-| <a href="|-$headline->getUrl()-|" target="_blank" title="Ir a nota original" ><img src="images/clear.png" class="icon iconNewsGoTo" /></a> |-/if-|
 				
 		|-if $headline->getStrategy() neq 'feed'-|
