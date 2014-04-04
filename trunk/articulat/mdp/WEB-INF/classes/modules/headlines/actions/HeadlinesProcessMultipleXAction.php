@@ -35,6 +35,9 @@ class HeadlinesProcessMultipleXAction extends BaseAction {
 				case 'tags':
 					Headline::addTagsToMultiple($headlines, $_POST["selectedIds"]);
 					break;
+				case 'issues':
+					Headline::addIssuesToMultiple($headlines, $_POST["selectedIds"]);
+					break;
 				default:
 					# code...
 					break;

@@ -3,7 +3,7 @@
 	|-foreach from=$headlinesIds item=headlineId-|
 		$('headline' + |-$headlineId-|).remove();
 	|-/foreach-|
-|-elseif $action eq 'tags'-|
+|-elseif $action eq 'tags' or $action eq 'issues'-|
 	var checks = document.getElementsByName('selected[]');
 	for (i=0;i<checks.length;i++) {
 		if(checks[i].checked)
@@ -22,6 +22,6 @@
 			chosen[i].style.display ="block";
 		}
 	}
-	$('resultDiv').innerHTML = '<span class="resultSuccess">Etiquetas agregadas con exito</span>';
+	$('resultDiv').innerHTML = '<span class="resultSuccess">|-if $action eq "tags"-|Etiquetas agregadas|-else-|Asuntos agregados|-/if-| con exito</span>';
 |-/if-|
 </script>
