@@ -480,7 +480,7 @@ class Headline extends BaseHeadline {
 	
 	public function removeTag($headline, $tag) {
 		
-		$headline = HeadlineQuery::create()->findOneById($_POST["headlineId"]);
+		$headline = HeadlineQuery::create()->findOneById($headline->getId());
 		$relation = HeadlineTagRelationQuery::create()->filterByHeadline($headline)->filterByHeadlineTag($tag)->findOne();
 		
 		if (!empty($relation))
@@ -506,10 +506,10 @@ class Headline extends BaseHeadline {
 			$associatedTags = $headline->getHeadlineTags();
 			
 			// Quitar los tags que sobren
-			foreach ($associatedTags as $e) {
+			/*foreach ($associatedTags as $e) {
 				if (!Headline::arrayHasTag($selectedTags, $e))
 					Headline::removeTag($headline, $e);
-			}
+			}*/
 			
 			// Agregar los tags que falten
 			foreach ($selectedTags as $e) {

@@ -25,13 +25,12 @@
 	function buildMultipleItemsForm(formId, name) {
 		
 		var form = $(formId);
-		
 		//elimino elementos que puedan existir en el form anteriormente
 		toDelete = form.childElements();
 		
 		var i;
 		for (i=0;i<toDelete.length; i++) {
-			if (toDelete[i].name == 'selected[]')
+			if (toDelete[i].name == name)
 				toDelete[i].remove();
 		}
 		
@@ -66,10 +65,8 @@
 				postParams += "&selectedIds[]="+options[i].value;
 		}
 
-		console.log(Form.serialize(form) + postParams);
-		
 		new Ajax.Updater(
-			"",
+			"resultDiv",
 			url,
 			{
 				method: 'post',
@@ -197,7 +194,7 @@
 		</tr>
 	|-else-|
 		|-foreach from=$headlines item=headline name=for_headlines-|
-		<tr> 
+		<tr id="headline|-$headline->getId()-|"> 
 			<td align="center"><input type="checkbox" name="selected[]" value="|-$headline->getId()-|"></td>
 				<td nowrap="nowrap"|-if $headline->processed()-| class="processed"|-/if-|>|-if $headline->getUrl() ne ''-| <a href="|-$headline->getUrl()-|" target="_blank" title="Ir a nota original" ><img src="images/clear.png" class="icon iconNewsGoTo" /></a> |-/if-|
 				
