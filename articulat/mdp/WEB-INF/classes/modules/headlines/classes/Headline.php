@@ -461,9 +461,9 @@ class Headline extends BaseHeadline {
 		return $agendasTranslated[$this->getAgenda()];
 	}
 
-	public function arrayHasTag($array, $tag) {
+	public function arrayHasElement($array, $elem) {
 		foreach ($array as $e) {
-			if ($e->getId() == $tag->getId())
+			if ($e->getId() == $elem->getId())
 				return true;
 		}
 		return false;
@@ -476,21 +476,6 @@ class Headline extends BaseHeadline {
 				$smarty->assign('message', 'failure');
 			} 
 		}
-	}
-	
-	public function removeTag($headline, $tag) {
-		
-		$headline = HeadlineQuery::create()->findOneById($headline->getId());
-		$relation = HeadlineTagRelationQuery::create()->filterByHeadline($headline)->filterByHeadlineTag($tag)->findOne();
-		
-		if (!empty($relation))
-			try {
-				$relation->delete();
-			}
-			catch (PropelException $exp) {
-				if (ConfigModule::get("global","showPropelExceptions"))
-					print_r($exp->getMessage());
-			}
 	}
 
 	public function addTagsToMultiple($headlines, $tags){
@@ -505,16 +490,31 @@ class Headline extends BaseHeadline {
 			}
 			$associatedTags = $headline->getHeadlineTags();
 			
-			// Quitar los tags que sobren
-			/*foreach ($associatedTags as $e) {
-				if (!Headline::arrayHasTag($selectedTags, $e))
-					Headline::removeTag($headline, $e);
-			}*/
-			
 			// Agregar los tags que falten
 			foreach ($selectedTags as $e) {
-				if (!Headline::arrayHasTag($associatedTags, $e))
+				if (!Headline::arrayHasElement($associatedTags, $e))
 					Headline::addTag($headline, $e);
+			}
+		}
+		return 0;
+	}
+
+	public function addIssuesToMultiple($headlines, $issues){
+		foreach ($headlines as $headlineId) {
+			
+			$headline = HeadlineQuery::create()->findOneById($headlineId);
+			$selectedIssues = array();
+			
+			foreach ($issues as $issueId) {
+				array_push($selectedIssues, IssueQuery::create()->findOneById($issueId));
+			}
+			
+			// Agregar los tags que falten
+			foreach ($selectedIssues as $e) {
+				if (!$headline->hasIssue($e)){
+					$headline->addIssue($e);
+					$headline->save();
+				}
 			}
 		}
 		return 0;

@@ -55,7 +55,7 @@
 		return true;
 	}
 
-	function updateTags(options, form) {
+	function updateMultiple(options, form) {
 
 		buildMultipleItemsForm(form, 'headlinesIds[]');
 		// Cargar selecionados
@@ -156,9 +156,24 @@
 					<form method="post" id="form_tags" style="display:inline;">
 					<input type="hidden" name="action" value="tags" />
 					<input type="hidden" name="do" value="headlinesProcessMultipleX" />
-					<select class="chzn-select wide-chz-select" data-placeholder="Seleccione una o varias etiquetas..." id="tagsIds" size="5" multiple="multiple" onChange="updateTags(this.options, this.form)">
+					<select class="chzn-select wide-chz-select" data-placeholder="Seleccione una o varias etiquetas..." id="tagsIds" size="5" multiple="multiple" onChange="updateMultiple(this.options, this.form)">
 						|-foreach from=$headlineTags item=headlineTag name=for_headlineTags-|
 			        		<option value="|-$headlineTag->getId()-|" >|-$headlineTag->getName()-|</option>
+						|-/foreach-|
+					</select>
+					</form>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="9"><a href="javascript:void(null);" onClick='switch_vis("issueEdit");' class="tdTit">Asuntos</a>
+				<div id="issueEdit">
+					<form method="post" id="form_issues" style="display:inline;">
+					<input type="hidden" name="action" value="issues" />
+					<input type="hidden" name="do" value="headlinesProcessMultipleX" />
+					<select class="chzn-select wide-chz-select" data-placeholder="Seleccione un asunto..." id="issuesIds" size="5" multiple="multiple" onChange="updateMultiple(this.options, this.form)">
+						|-foreach from=$headlineIssues item=headlineIssue name=for_headlineIssues-|
+			        		<option value="|-$headlineIssue->getId()-|" >|-$headlineIssue->getName()-|</option>
 						|-/foreach-|
 					</select>
 					</form>
