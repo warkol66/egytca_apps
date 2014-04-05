@@ -186,7 +186,7 @@
 			return d.size;
 		});
 
-		zoomableTreemapHeaders(pTrends, treemap);
+		zoomableTreemapHeaders(pTrends, treemap, 'treeMap', 1200, 700);
 	}
 	|-/if-|
 </script>
