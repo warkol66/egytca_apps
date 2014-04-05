@@ -343,7 +343,7 @@ function zoomableTreemap(treeInfo, divId, w, h){
 		.attr("height", function(d) { return d.dy - 1; })
 		.style("fill", function(d) { return color(d.parent.name); })
 		.text(function(d) { return d.children ? null : d.name; });
-		//.text(function(d) { return d.parent.name + " " + formatNumber(d.parent.size); }); /*should be d.value*/
+		//.text(function(d) { return d.parent.name + " " + formatNumber(d.parent.size); }); 
 	cell.append("svg:text")
 		.attr("x", function(d) { return d.dx / 2; })
 		.attr("y", function(d) { return d.dy / 2; })
@@ -390,18 +390,32 @@ function zoomableTreemap(treeInfo, divId, w, h){
 
 }
 
-function zoomableTreemapHeaders(treeInfo, treemap){
+function zoomableTreemapHeaders(treeInfo, treemap, divId, w, h){
 
-	var chartWidth = 1200 - 80;
-    var chartHeight = 700 - 180;
+	var chartWidth = w - 80;
+    var chartHeight = h - 180;
     var xscale = d3.scale.linear().range([0, chartWidth]);
     var yscale = d3.scale.linear().range([0, chartHeight]);
-    var color = d3.scale.ordinal()
-		.domain(["hashtags", "mentions", "words", "phrases"])
-		.range(["#EFE9DC", "#CCF5EF", "#FFFFDD", "#AAFEFF"]);
-	var headers = d3.scale.ordinal()
+    if(divId == 'treeMap'){
+		var color = d3.scale.ordinal()
+			.domain(["hashtags", "mentions", "words", "phrases"])
+			.range(["#EFE9DC", "#CCF5EF", "#FFFFDD", "#AAFEFF"]);
+		var headers = d3.scale.ordinal()
 		.domain(["personalTrends", "hashtags", "mentions", "words", "phrases"])
 		.range(["Tendencias Personalizadas", "Hashtags", "Menciones", "Palabras", "Frases"]);
+	}else if(divId == 'vennChart'){
+		var color = d3.scale.ordinal()
+			.domain(["Positivo-Relevante", "Positivo-Medianamente relevante", "Positivo-Irrelevante", 
+			"Neutro-Relevante", "Neutro-Medianamente relevante", "Neutro-Irrelevante",
+			"Negativo-Relevante", "Negativo-Medianamente relevante", "Negativo-Irrelevante"])
+			.range(["#006cff", "#72aeff", "#daeaff",
+			"#fff600", "#fff833", "#fffa66",
+			"#ff6666", "#ff3333", "#ff0000"]);
+		var headers = d3.scale.ordinal()
+		.domain(["Positivo", "Neutro", "Negativo"])
+		.range(["Positivos", "Neutros", "Negativos"]);
+	}
+	
 
     var headerHeight = 20;
     var headerColor = "#ffffff";
@@ -411,7 +425,7 @@ function zoomableTreemapHeaders(treeInfo, treemap){
 
     var jsonData = treeInfo;
 
-    var chart = d3.select("#treeMap").append("div")
+    var chart = d3.select("#" + divId).append("div")
             .append("svg:svg")
             .attr("width", chartWidth)
             .attr("height", chartHeight)
@@ -498,7 +512,12 @@ function zoomableTreemapHeaders(treeInfo, treemap){
         childEnterTransition.append("rect")
                 .classed("background", true)
                 .style("fill", function(d) {
-                    return color(d.parent.name);
+                	if(divId == 'treeMap'){
+                    	return color(d.parent.name);
+                    }else if(divId == 'vennChart'){
+                    	console.log(color(d.name));
+                    	return color(d.name);
+                    }
                 });
         childEnterTransition.append('text')
                 .attr("class", "label")
@@ -566,6 +585,8 @@ function zoomableTreemapHeaders(treeInfo, treemap){
         zoom(node);
         
      function size(d) {
+     	console.log(d.size);
+     	console.log(d.name);
         return d.size;
     }
 

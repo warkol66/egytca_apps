@@ -331,19 +331,47 @@ class TwitterTweetQuery extends BaseTwitterTweetQuery{
 		
 		return $combinations;
 	}
-	
-	public function formatForTreemap($toFormat, $parentName){
-		$formatted = array();
+
+	public static function getCombinationsTreemap($filters){
 		
-		foreach($toFormat as $combination){
-			$comb = array($combination);
-			$formatted[] = array('name' => $combination['name'], 'children' => $comb);
- 		}
+		$tempValues = TwitterTweet::getValues();
+		$tempRelevances = TwitterTweet::getRelevances();
 		
-		$formatted = array('name' => $parentName, 'children' => $formatted);
+		$valueFilter = $filters['value'];
+		$relevanceFilter = $filters['relevance'];
 		
-		//return $formatted;
-		return json_encode($formatted);
+		if(!empty($valueFilter))
+			$values[$valueFilter] = $tempValues[$valueFilter];
+		else
+			$values = $tempValues;
+		if(!empty($relevanceFilter))
+			$relevances[$relevanceFilter] = $tempRelevances[$relevanceFilter];
+		else
+			$relevances = $tempRelevances;
+
+		if(empty($filters['type'])) 
+			$filters['type'] = 0;
+
+		$combinations = array();
+		
+		foreach($values as $value => $name){
+			$children = array();
+			foreach($relevances as $relevance => $relName){
+				
+				$tweetsAmount = TwitterTweetQuery::create()
+					->applyReportFilters($filters)
+					->filterByValue($value)
+					->filterByRelevance($relevance)
+					->count();
+				
+				$children[] = array('name' => $name .'-'. $relName, 'size' => $tweetsAmount);
+			}
+
+			$combinations[] = array('name' => $name, 'children' => $children);
+		}
+
+		$combinations = array('name' => 'Combinaciones', 'children' => $combinations);
+		return json_encode($combinations);
 	}
 
 	/* Obtiene los datos para el diagrama de venn
