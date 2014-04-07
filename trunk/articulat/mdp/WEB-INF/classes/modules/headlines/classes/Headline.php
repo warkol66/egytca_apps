@@ -473,12 +473,16 @@ class Headline extends BaseHeadline {
 		if (!($headline->hasHeadlineTag($tag))) {
 			$headline->addHeadlineTag($tag);
 			if (!$headline->save()) {
-				$smarty->assign('message', 'failure');
-			} 
+				return false;
+			}
 		}
+		return true;
 	}
 
 	public function addTagsToMultiple($headlines, $tags){
+
+		$not_saved = array();
+
 		foreach ($headlines as $headlineId) {
 			
 			$headline = HeadlineQuery::create()->findOneById($headlineId);
@@ -493,13 +497,17 @@ class Headline extends BaseHeadline {
 			// Agregar los tags que falten
 			foreach ($selectedTags as $e) {
 				if (!Headline::arrayHasElement($associatedTags, $e))
-					Headline::addTag($headline, $e);
+					if(!Headline::addTag($headline, $e))
+						$not_saved[] = $headline;
 			}
 		}
-		return 0;
+		return $not_saved;
 	}
 
 	public function addIssuesToMultiple($headlines, $issues){
+
+		$not_saved = array();
+		
 		foreach ($headlines as $headlineId) {
 			
 			$headline = HeadlineQuery::create()->findOneById($headlineId);
@@ -513,11 +521,12 @@ class Headline extends BaseHeadline {
 			foreach ($selectedIssues as $e) {
 				if (!$headline->hasIssue($e)){
 					$headline->addIssue($e);
-					$headline->save();
+					if(!$headline->save())
+						$not_saved[] = $headline;
 				}
 			}
 		}
-		return 0;
+		return $not_saved;
 	}
 
 } // Headline
