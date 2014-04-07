@@ -408,9 +408,7 @@ function zoomableTreemapHeaders(treeInfo, treemap, divId, w, h){
 			.domain(["Positivo-Relevante", "Positivo-Medianamente relevante", "Positivo-Irrelevante", 
 			"Neutro-Relevante", "Neutro-Medianamente relevante", "Neutro-Irrelevante",
 			"Negativo-Relevante", "Negativo-Medianamente relevante", "Negativo-Irrelevante"])
-			.range(["#006cff", "#72aeff", "#daeaff",
-			"#fff600", "#fff833", "#fffa66",
-			"#ff6666", "#ff3333", "#ff0000"]);
+			.range(["#006cff","#fff600","#ff6666", "#72aeff", "#daeaff", "#fff833", "#fffa66", "#ff3333", "#ff0000"]);
 		var headers = d3.scale.ordinal()
 		.domain(["Positivo", "Neutro", "Negativo"])
 		.range(["Positivos", "Neutros", "Negativos"]);
