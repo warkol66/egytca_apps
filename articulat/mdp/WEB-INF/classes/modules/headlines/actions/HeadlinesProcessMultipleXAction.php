@@ -33,18 +33,20 @@ class HeadlinesProcessMultipleXAction extends BaseAction {
 					$smarty->assign('headlinesIds', $_POST['headlinesIds']);
 					break;
 				case 'tags':
-					Headline::addTagsToMultiple($headlines, $_POST["selectedIds"]);
+					$not_saved = Headline::addTagsToMultiple($headlines, $_POST["selectedIds"]);
 					break;
 				case 'issues':
-					Headline::addIssuesToMultiple($headlines, $_POST["selectedIds"]);
+					$not_saved = Headline::addIssuesToMultiple($headlines, $_POST["selectedIds"]);
 					break;
 				default:
-					# code...
 					break;
 			}
+
+			if(!empty($not_saved))
+				$smarty->assign('notSaved', $not_saved);
 			
 		} else {
-			//return $mapping->findForwardConfig('failure');
+			$smarty->assign('noHeadlines', true);
 		}
 		
 		return $mapping->findForwardConfig('success');
