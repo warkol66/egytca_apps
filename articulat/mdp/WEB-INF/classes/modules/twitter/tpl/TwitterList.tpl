@@ -1,6 +1,6 @@
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 <script src="Main.php?do=js&name=js&module=twitter&code=|-$currentLanguageCode-|" type="text/javascript"></script>
-<link rel="stylesheet" media="all" type="text/css" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+<link rel="stylesheet" media="all" type="text/css" href="css/jquery-ui.css" />
 <link rel="stylesheet" media="screen" type="text/css" href="scripts/jquery/fancyapps/source/jquery.fancybox.css?v=2.1.5" />
 <link type="text/css" rel="stylesheet" href="scripts/jquery/jqueryTimepicker/src/jquery-ui-timepicker-addon.css" />
 <script src="scripts/jquery/jquery.min.js" charset="utf-8"></script>

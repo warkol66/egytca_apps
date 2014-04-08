@@ -513,7 +513,7 @@ function zoomableTreemapHeaders(treeInfo, treemap, divId, w, h){
                 	if(divId == 'treeMap'){
                     	return color(d.parent.name);
                     }else if(divId == 'vennChart'){
-                    	console.log(color(d.name));
+                    	//console.log(color(d.name));
                     	return color(d.name);
                     }
                 });
