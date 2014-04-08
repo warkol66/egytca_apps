@@ -1,6 +1,6 @@
 <script src="Main.php?do=js&name=js&module=twitter&code=|-$currentLanguageCode-|" type="text/javascript"></script>
 <script src="scripts/event.simulate.js" type="text/javascript"></script>
-<link rel="stylesheet" media="all" type="text/css" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+<link rel="stylesheet" media="all" type="text/css" href="css/jquery-ui.css" />
 <link type="text/css" rel="stylesheet" href="scripts/jquery/jqueryTimepicker/src/jquery-ui-timepicker-addon.css" />
 <script src="scripts/jquery/jquery.min.js" charset="utf-8"></script>
 <script src="scripts/jquery/jquery-ui-1.10.3.custom.min.js" charset="utf-8"></script>
@@ -15,7 +15,7 @@
 |-if !$campaign->isNew()-|
 <h1>Importar Tweets - |-$campaign-|</h1>
 <div id="lightboxView" class="leightbox">
-	<script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+	<script type="text/javascript" src="scripts/widgets.js"></script>
 	<p align="right"><a href="#" class="lbAction blackNoDecoration" id="lClose" rel="deactivate">Cerrar <input type="button" class="icon iconClose" /></a></p> 
 <div id="viewWorking"></div>
 	<div class="innerLighbox">
