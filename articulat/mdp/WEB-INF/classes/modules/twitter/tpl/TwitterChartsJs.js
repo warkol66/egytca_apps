@@ -408,7 +408,7 @@ function zoomableTreemapHeaders(treeInfo, treemap, divId, w, h){
 			.domain(["Positivo-Relevante", "Positivo-Medianamente relevante", "Positivo-Irrelevante", 
 			"Neutro-Relevante", "Neutro-Medianamente relevante", "Neutro-Irrelevante",
 			"Negativo-Relevante", "Negativo-Medianamente relevante", "Negativo-Irrelevante"])
-			.range(["#006cff","#fff600","#ff6666", "#72aeff", "#daeaff", "#fff833", "#fffa66", "#ff3333", "#ff0000"]);
+			.range(["#006cff","#72aeff","#daeaff", "#fff600", "#FFF68F", "#FFFACD", "#FFCCCC", "#EE6363", "#FF3300"]);
 		var headers = d3.scale.ordinal()
 		.domain(["Positivo", "Neutro", "Negativo"])
 		.range(["Positivos", "Neutros", "Negativos"]);
@@ -513,7 +513,6 @@ function zoomableTreemapHeaders(treeInfo, treemap, divId, w, h){
                 	if(divId == 'treeMap'){
                     	return color(d.parent.name);
                     }else if(divId == 'vennChart'){
-                    	//console.log(color(d.name));
                     	return color(d.name);
                     }
                 });
@@ -549,7 +548,12 @@ function zoomableTreemapHeaders(treeInfo, treemap, divId, w, h){
                     return (d.dy - 1);
                 })
                 .style("fill", function(d) {
-                    return color(d.parent.name);
+					if(divId == 'treeMap'){
+                    	return color(d.parent.name);
+                    }else if(divId == 'vennChart'){
+                    	return color(d.name);
+                    }
+                    //return color(d.parent.name);
                 });
         childUpdateTransition.select(".label")
                 .attr('x', function(d) {
@@ -694,7 +698,15 @@ function zoomableTreemapHeaders(treeInfo, treemap, divId, w, h){
                     return d.children ? headerHeight : Math.max(0.01, (ky * d.dy - 1));
                 })
                 .style("fill", function(d) {
-                    return d.children ? headerColor : color(d.parent.name);
+					if(d.children){
+						return headerColor;
+					}else{ 
+						if(divId == 'treeMap'){
+							return color(d.parent.name);
+						}else if(divId == 'vennChart'){
+							return color(d.name);
+						}
+					}
                 });
 
         node = d;
