@@ -32,7 +32,7 @@ class TwitterDoParseXAction extends BaseAction {
 				if (empty($query))
 					continue;
 				
-				$searchRespone = $twitterConnection->search($query,3,'search');
+				$searchRespone = $twitterConnection->search($query,50,'search');
 				if(empty($searchRespone->errors)){
 					foreach ($searchRespone->statuses as $responseTweet) {
 						// obtengo el html para embeber el tweet

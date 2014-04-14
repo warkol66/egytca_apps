@@ -184,7 +184,7 @@ class TwitterTweet extends BaseTwitterTweet{
 	/* Pone los attachments del tweet en la cola para descargar
 	*
 	*/
-	function queueAttachments(){
+	function queueAttachments($attachemtsArray){
 
 		require_once('AutoDownloaderTwitter.php');
 		$attachmentsPath = TwitterTweet::ATTACHMENTS_PATH;
@@ -200,6 +200,7 @@ class TwitterTweet extends BaseTwitterTweet{
 		foreach ($attachments as $newAttachment) {
 			$newAttachmentName = $newAttachment->getId().'-'.uniqid();
 			$newAttachmentFullname = realpath($attachmentsPath)."/".$newAttachmentName;
+			$attachemtsArray[] = $newAttachmentFullname;
 			//$newAttachmentSecondaryDataName = "r-".$newAttachmentName;
 			
 			$newAttachment->setName($newAttachmentName);

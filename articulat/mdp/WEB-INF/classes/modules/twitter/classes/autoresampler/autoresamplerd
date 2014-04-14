@@ -17,7 +17,7 @@ resample() {
 	id=`grep "id" $queuedFile | sed -e "s/id=//"`
 
 	cd $mainphpDir
-	php Main.php do=headlinesImageDoCreateResampledCopy id=$id >/dev/null
+	php Main.php do=twitterImageDoCreateResampledCopy id=$id >/dev/null
 	result=$?
 	cd $autoresamplerDir
 
