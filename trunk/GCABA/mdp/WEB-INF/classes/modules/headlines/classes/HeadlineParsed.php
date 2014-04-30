@@ -40,7 +40,7 @@ class HeadlineParsed extends BaseHeadlineParsed {
 
 		if ($this->getCampaignid()) {
 			//Creo el clipping
-			require_once('PhantomHtmlRenderer/PhantomHtmlRenderer.php');
+			require_once 'HtmlRenderer.php';
 			$url = $newHeadline->getUrl();
 			$imagePath = ConfigModule::get('headlines', 'clippingsPath');
 			if (!file_exists($imagePath))
@@ -48,7 +48,7 @@ class HeadlineParsed extends BaseHeadlineParsed {
 
 			$imageFullname = realpath($imagePath) . "/" . $newHeadline->getId() . ".jpg";
 
-			$renderer = new PhantomHtmlRenderer();
+			$renderer = HtmlRenderer::create();
 			$renderer->render($url, $imageFullname, true, true);
 			//Fin clipping
 		} else {

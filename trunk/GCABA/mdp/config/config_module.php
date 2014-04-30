@@ -88,6 +88,8 @@ class ConfigModule {
 			"clippingsPath" => "./WEB-INF/classes/modules/headlines/files/clipping/",
 			"clippingsTmpPath" => "./WEB-INF/classes/modules/headlines/files/clipping/tmp/",
 			"clippingApp" => "./WEB-INF/classes/modules/headlines/classes/urlcaptor/wkhtmltoimage",
+			"phantomjsBin" => "WEB-INF/classes/includes/phantomjs/bin/phantomjs",
+			"htmlRenderer" => "PhantomHtmlRenderer", // [ PhantomHtmlRenderer | WebkitHtmlRenderer ]
 			"contentProvider" => array(
 				"strategies" => array(
 					"default"    => "GoogleNewsStrategy",

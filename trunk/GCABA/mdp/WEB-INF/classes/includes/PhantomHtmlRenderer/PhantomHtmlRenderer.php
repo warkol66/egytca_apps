@@ -1,40 +1,15 @@
 <?php
 
-abstract class HtmlRenderer {
-	
-	/**
-	 *
-	 * @param string $url
-	 * @param string $image
-	 */
-	abstract function render($url, $image = 'default_image.jpg', $defaultSettings = false, $backgrounded = false);
-	
-	protected function getDefaultSettings() {
-		global $system;
-		$quality = $system['config']['clippings']['quality'];
-		if (empty($quality))
-			$quality = 90;
-		$width = $system['config']['clippings']['width'];
-		if (empty($width))
-			$width = 1024;
-		$height = $system['config']['clippings']['height'];
-		if (empty($height))
-			$height = 600;
-		return array($quality, $width, $height);
-	}
-}
+require_once 'HtmlRenderer.php';
 
 class PhantomHtmlRenderer extends HtmlRenderer {
 	
-	private $config;
 	private $phantomjs;
 	private $renderjs;
 	
 	public function __construct() {
 		
-//		$this->command = realpath('./' . ConfigModule::get("headlines","clippingApp"));
-		// TODO: cargar de config
-		$this->phantomjs = realpath(__DIR__.'/../phantomjs/bin/phantomjs');
+		$this->phantomjs = realpath(ConfigModule::get('headlines', 'phantomjsBin'));
 		$this->renderjs = realpath(__DIR__.'/render.js');
 		if (!$this->phantomjs)
 			throw new Exception('No se encontr&oacute; el binario de phantomjs ('.$this->phantomjs.')');
