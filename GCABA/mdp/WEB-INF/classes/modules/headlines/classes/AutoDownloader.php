@@ -1,6 +1,32 @@
 <?php
 
+throw new Exception('renombrar');
+
+throw new Exception('deharcodear');
+require_once 'WEB-INF/lib-phpmvc/AutoProcessor/AutoProcessor.php';
+
+throw new Exception('renombrar putInQueue2 a putInQueue y eliminar la vieja cuando este listo');
+
 class AutoDownloader {
+	
+	public function putInQueue2($attachment, $mustResample = false) {
+		$url = $attachment->getUrl();
+		$outputFile = $attachment->getRealpath();
+		$id = $attachment->getId();
+		
+		if (is_null($outputFile))
+			$outputFile = 'autonamed-'.uniqid();
+		
+		$data = array(
+			'id' => $id,
+			'url' => $url,
+			'outputFile' => $outputFile,
+			'mustResample' => $mustResample
+		);
+		
+		throw new Exception('deharcodear');
+		AutoProcessor::putInQueue('WEB-INF/lib-phpmvc/AutoProcessor/test-process.php', $data);
+	}
 	
 	public function putInQueue($attachment, $mustResample = false) {
 		
