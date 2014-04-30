@@ -1,11 +1,11 @@
 <?php
 
-throw new Exception('renombrar');
-
-throw new Exception('deharcodear');
-require_once 'WEB-INF/lib-phpmvc/AutoProcessor/AutoProcessor.php';
-
-throw new Exception('renombrar putInQueue2 a putInQueue y eliminar la vieja cuando este listo');
+//throw new Exception('renombrar');
+//
+//throw new Exception('deharcodear');
+//require_once 'WEB-INF/lib-phpmvc/AutoProcessor/AutoProcessor.php';
+//
+//throw new Exception('renombrar putInQueue2 a putInQueue y eliminar la vieja cuando este listo');
 
 class AutoDownloader {
 	
