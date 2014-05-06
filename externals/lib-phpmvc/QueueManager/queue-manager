@@ -1,0 +1,36 @@
+#! /bin/sh
+
+USAGE_HELP="
+Usage: queue-manager <command>
+Commands:
+	start	Starts the daemon
+	stop	Stops the daemon
+	status	Shows the status of the daemon
+"
+
+configFile="config.ini"
+
+out=`grep "stdout" $configFile | sed -e "s/stdout=//"`
+err=`grep "stderr" $configFile | sed -e "s/stderr=//"`
+
+case "$1" in
+	"start")
+		./queue-manager-daemon > $out 2> $err &
+		echo "PID=$!" > queue-manager-daemon.pid
+		;;
+	"stop")
+		PID=`grep "PID" "queue-manager-daemon.pid" | sed -e "s/PID=//"`
+		kill $PID
+		rm queue-manager-daemon.pid
+		;;
+	"status")
+		if [ -f "queue-manager-daemon.pid" ] ; then
+			echo "running"
+		else
+			echo "stopped"
+		fi
+		;;
+	*)
+		echo "$USAGE_HELP"
+		;;
+esac
