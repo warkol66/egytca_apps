@@ -1,13 +1,16 @@
 <?php
 
-//throw new Exception('renombrar');
-//
-//throw new Exception('deharcodear');
-//require_once 'WEB-INF/lib-phpmvc/AutoProcessor/AutoProcessor.php';
-//
+// TODO: sacar la parte de lib-phpmvc;
+require_once 'WEB-INF/lib-phpmvc/QueueManager/QueueManager.php';
 //throw new Exception('renombrar putInQueue2 a putInQueue y eliminar la vieja cuando este listo');
 
 class AutoDownloader {
+	
+	private $downloadScript;
+	
+	public function __construct() {
+		$this->downloadScript = __DIR__.'/autodownload.php';
+	}
 	
 	public function putInQueue2($attachment, $mustResample = false) {
 		$url = $attachment->getUrl();
@@ -24,8 +27,8 @@ class AutoDownloader {
 			'mustResample' => $mustResample
 		);
 		
-		throw new Exception('deharcodear');
-		AutoProcessor::putInQueue('WEB-INF/lib-phpmvc/AutoProcessor/test-process.php', $data);
+		$queueManager = new QueueManager();
+		$queueManager->putInQueue($this->downloadScript, $data);
 	}
 	
 	public function putInQueue($attachment, $mustResample = false) {

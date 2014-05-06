@@ -1,6 +1,10 @@
 <?php
 
 class HeadlinesAttachmentDownloadXAction extends BaseAction {
+	
+	private $format = null;
+	private $mapping;
+	private $smarty;
 
 	function HeadlinesAttachmentDownloadXAction() {
 		;
@@ -15,6 +19,12 @@ class HeadlinesAttachmentDownloadXAction extends BaseAction {
 		if($smarty == NULL) {
 			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
 		}
+		
+		$this->mapping = $mapping;
+		$this->smarty = $smarty;
+		
+		if (!empty($_REQUEST['format']) && $_REQUEST['format'] == 'json')
+			$this->format = 'json';
 
 		if (!empty($_POST['id'])) {
 			
@@ -24,19 +34,41 @@ class HeadlinesAttachmentDownloadXAction extends BaseAction {
 				try {
 					$attachment->download();
 				} catch (Exception $e) {
-					$smarty->assign('errorMessage', $e->getMessage());
-					return $mapping->findForwardConfig('success');
+					return $this->returnError($e->getMessage());
 				}
 				
 				$smarty->assign('name', $attachment->getName());
-				return $mapping->findForwardConfig('success');
+				return $this->returnSuccess();
 			} else {
-				$smarty->assign('errorMessage', 'invalid ID');
-				return $mapping->findForwardConfig('success');
+				return $this->returnError('invalid ID');
 			}
 		} else {
-			$smarty->assign('errorMessage', 'missing ID');
-			return $mapping->findForwardConfig('success');
+			return $this->returnError('missing ID');
+		}
+	}
+	
+	private function returnError($message) {
+		if ($this->format == 'json') {
+			echo json_encode(array(
+				'error' => array('message' => $message)
+			), JSON_PRETTY_PRINT);
+			echo "\n";
+			return;
+		} else {
+			$this->smarty->assign('errorMessage', $message);
+			return $this->mapping->findForwardConfig('success');
+		}
+	}
+	
+	private function returnSuccess() {
+		if ($this->format == 'json') {
+			echo json_encode(array(
+				'error' => null
+			), JSON_PRETTY_PRINT);
+			echo "\n";
+			return;
+		} else {
+			return $this->mapping->findForwardConfig('success');
 		}
 	}
 }
