@@ -2,7 +2,6 @@
 
 // TODO: sacar la parte de lib-phpmvc;
 require_once 'WEB-INF/lib-phpmvc/QueueManager/QueueManager.php';
-//throw new Exception('renombrar putInQueue2 a putInQueue y eliminar la vieja cuando este listo');
 
 class AutoDownloader {
 	
@@ -12,7 +11,7 @@ class AutoDownloader {
 		$this->downloadScript = __DIR__.'/autodownload.php';
 	}
 	
-	public function putInQueue2($attachment, $mustResample = false) {
+	public function putInQueue($attachment, $mustResample = false) {
 		$url = $attachment->getUrl();
 		$outputFile = $attachment->getRealpath();
 		$id = $attachment->getId();
@@ -31,7 +30,10 @@ class AutoDownloader {
 		$queueManager->putInQueue($this->downloadScript, $data);
 	}
 	
-	public function putInQueue($attachment, $mustResample = false) {
+	/**
+	 * poner en cola del autodwnlder
+	 */
+	public function putInAutodwnlderQueue($attachment, $mustResample = false) {
 		
 		$url = $attachment->getUrl();
 		$outputFile = $attachment->getRealpath();
