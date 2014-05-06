@@ -5,7 +5,9 @@ class QueueManager {
 	private $queueDir;
 	
 	public function __construct() {
-		$this->queueDir = __DIR__.'/queue';
+		$configData = file_get_contents(__DIR__.DIRECTORY_SEPARATOR.'config.ini');
+		preg_match("/(^|\n)queue=([^\n]*)(\n|$)/", $configData, $matches);
+		$this->queueDir = __DIR__.'/'.$matches[2];
 	}
 	
 	function putInQueue($script, $data, $filename) {
