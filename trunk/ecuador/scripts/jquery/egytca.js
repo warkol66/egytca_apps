@@ -104,7 +104,7 @@ Egytca = {
 				name: 'paramValue',
 				submit: 'OK',
 				cancel: 'Cancelar',
-				indicator: '<img src="images/loading.gif" /> Guardando...',
+				indicator: '<img src="images/icon_spinner.gif" /> Guardando...',
 				tooltip: 'Click para editar...'
 			}, options);
 			
