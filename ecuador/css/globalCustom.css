@@ -54,7 +54,7 @@ input[type="submit"].icon, input[type="button"].icon, input[type="reset"].icon {
 	background-position: left top;
 }
 input[type="submit"].icon, input[type="button"].icon,
-.icon, .editor_ok_button, .editor_cancel_button  {
+.icon, .editor_ok_button, .editor_cancel_button, .in_place_editable button {
 	background-color: #e0e0e0 !Important;/*#d0d0d0; */
 	border: solid 1px #ababab !Important;
 	vertical-align: top;
@@ -70,8 +70,8 @@ input[type="submit"].icon, input[type="button"].icon,
 	-webkit-border-radius: .2em;
 	border-radius: .2em;
 }
-input[type="submit"].icon, input[type="button"].icon,
-input.icon, button.icon, input.editor_ok_button, input.editor_cancel_button {
+input[type="submit"].icon, input[type="button"].icon, input.icon, button.icon,
+input.editor_ok_button, input.editor_cancel_button, .in_place_editable button {
 	width: 22px !Important;
 	height: 22px !Important;
 	margin: 0 !Important;
@@ -82,7 +82,7 @@ a.icon {
 }
 /* Image Buttons and Links */
 .icon, input.editor_ok_button, input.editor_cancel_button,
-input[type="submit"].icon, input[type="button"].icon {
+input[type="submit"].icon, input[type="button"].icon, .in_place_editable button {
 	background-image: url(../images/icons_all.png) !Important;
 	background-repeat: no-repeat !Important;
 	background-color: #f0f0f0 !Important;
@@ -133,7 +133,7 @@ input[type="submit"].icon, input[type="button"].icon {
 	background-position: -120px -20px !Important; }
 .iconWeight {
 	background-position: -140px -20px !Important; }
-.iconActivate, input.editor_ok_button {
+.iconActivate, input.editor_ok_button, .in_place_editable button[type="submit"] {
 	background-position: -160px -20px !Important; }
 .iconHistory {
 	background-position: -180px -20px !Important; }
@@ -213,7 +213,8 @@ input[type="submit"].icon, input[type="button"].icon {
 	background-position: -60px -120px !Important; }
 .iconDelete {
 	background-position: -80px -120px !Important; }
-.iconCancel, input.editor_cancel_button, #fancybox-content #data .iconDelete {
+.iconCancel, input.editor_cancel_button, #fancybox-content #data .iconDelete,
+.in_place_editable button[type="cancel"] {
 	background-position: -100px -120px !Important; }
 .iconUnordered {
 	background-position: -120px -120px !Important; }
@@ -241,6 +242,8 @@ input[type="submit"].icon, input[type="button"].icon {
 	background-position: -160px -140px !Important; }
 .iconUserBlocked {
 	background-position: -180px -140px !Important; }
+.iconCopy {
+	background-position: -0px -180px !Important; }
 .iconTwitter {
 	background-position: -0px -160px !Important; }
 .iconTwitterGoTo {
@@ -257,7 +260,8 @@ input[type="submit"].icon, input[type="button"].icon {
 .iconCollapse {
 	background-image: url(../images/icon_collapse.png) !Important;
 	background-position: 2px 2px !Important; }
-.icon:hover,input[type="submit"].icon:hover, input[type="button"].icon:hover  {
+.icon:hover,input[type="submit"].icon:hover, input[type="button"].icon:hover,
+.in_place_editable button:hover {
 	background-color: #b9b9b9 !Important;
 	border: 1px solid #a3a3a3 !Important;
 }

@@ -28,13 +28,13 @@
 			<tr>
 				<th colspan="3" class="thFillTitle">
 					<div class="rightLink">
-						<a href="#" onclick="showInput('addInput2', 'addLink2'); return false;" id="addLink2" class="addLink">Agregar Etiqueta</a>
-						<form id="addInput2" action="Main.php" method="POST" onsubmit="prepareAndSubmit(this); showInput('addLink2', 'addInput2'); return false;" style="display: none;">
+						<a href="#" onclick="showInput('addInput1', 'addLink1'); return false;" id="addLink1" class="addLink">Agregar Etiqueta</a>
+						<form id="addInput1" action="Main.php" method="POST" onsubmit="prepareAndSubmit(this); showInput('addLink1', 'addInput1'); return false;" style="display: none;">
 							<label>Nombre</label>
 							<input type="text" name="params[name]" />
 							<input type="hidden" name="do" value="blogTagsDoEditX" />
 							<input type="submit" value="Guardar" class="icon iconActivate" />
-							<input type="button" value="Cancelar" class="icon iconCancel" onclick="showInput('addLink2', 'addInput2');" />
+							<input type="button" value="Cancelar" class="icon iconCancel" onclick="showInput('addLink1', 'addInput1');" />
 						</form>
 					</div>
 				</th>
