@@ -92,7 +92,7 @@ class AffiliateUser extends BaseAffiliateUser {
 	function isAffiliateOwner() {
 		$affiliateId = $this->getAffiliateId();
 		$affiliate = AffiliateQuery::create()->findPk($affiliateId);
-		if ($affiliate->getOwnerId() == $this->getId())
+		if (is_object($affiliate) && ($affiliate->getOwnerId() == $this->getId()))
 			return true;
 		else
 			return false;
