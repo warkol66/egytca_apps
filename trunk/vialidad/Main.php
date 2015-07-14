@@ -7,7 +7,7 @@
 
 // Set error reporting level. See PHP manual: XXVI. Error Handling and Logging Functions
 // Note: E_STRICT  (PHP5 compliance) will cause the PHP4 code base to fail.
-error_reporting(E_ALL);
+error_reporting(E_ERROR);
 //error_reporting(E_ALL -E_NOTICE -E_WARNING);
 ini_set('display_errors',1);
 
