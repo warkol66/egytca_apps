@@ -15,7 +15,7 @@ class ModulePaths {
 	* @public
 	* @returns array	
 	*/
-	function getModulePaths() {
+	public static function getModulePaths() {
 
 		//Setup the main module include() directories here
 		//Note: could be placed in an xml config file later !!
@@ -42,6 +42,13 @@ class ModulePaths {
 		return $appDirs;
 
 
+	}
+	
+	/**
+	 * Return path string with module paths
+	 */
+	public static function getModulePathsString() {
+		return implode(PATH_SEPARATOR, self::getModulePaths());
 	}
 
 }

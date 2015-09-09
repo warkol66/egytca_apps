@@ -163,7 +163,12 @@ function updateName(id, value) {
 function attachNameInPlaceEditors() {
 |-foreach from=$blogTagColl item=blogTag name=for_blogTags_ajax-|
 	$('#name_|-$blogTag->getId()-|').egytca('inplaceEdit', 'Main.php?do=blogDoEditFieldX', {
-		cssclass: 'inplaceEditSize20',
+		submit: 'Save',
+		cancel: 'Cancel',
+		indicator: '<img src="images/icon_spinner.gif" /> Saving changes...',
+		tooltip: 'Click to edit',
+		width:($("#name_|-$blogTag->getId()-|").width() + 20) + "px",
+		//height:($("span#edit").height() + 100) + "px",
 		submitdata: {
 			objectType: 'blogTag',
 			objectId: '|-$blogTag->getId()-|',
