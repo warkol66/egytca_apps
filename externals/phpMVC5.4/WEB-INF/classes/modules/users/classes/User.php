@@ -72,7 +72,7 @@ class User extends BaseUser {
 	 * Obtiene los grupos a los que pertenece un usuario
 	 * @returns todos los grupos.
 	 */
-	function getGroups() {
+/*	function getGroups() {
 
 		$criteria = UserGroupQuery::create()
 													->useGroupQuery()
@@ -82,7 +82,7 @@ class User extends BaseUser {
 		return $allObjs;
 
 	}
-
+*/
 	/*
 	 * Indica si un usuario forma parte de un grupo
 	 * @param array $groups array de grupos
@@ -257,10 +257,10 @@ class User extends BaseUser {
 	 * Devuelve el nivel del usuario.
 	 * @return propel Obje Level
 	 */
-	public function getLevel() {
+/*	public function getLevel() {
 		return LevelQuery::create()->findOneById($this->getLevelId());
 	}
-
+*/
 /* Categories
  *
  */

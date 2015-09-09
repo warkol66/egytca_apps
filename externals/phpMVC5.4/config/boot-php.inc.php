@@ -29,7 +29,7 @@ if($timerRun == True) $timer->printTime('Base Classes Load Time');
 require_once("BaseAction.php");
 
 // Timer - Application Classes Load Time
-if($timerRun == True) $this->printTime('Application Classes Load Time');
+if($timerRun == True) $timer->printTime('Application Classes Load Time');
 
 // Startup configuration information for an php.MVC Web app
 $appServerContext	= new AppServerContext;
