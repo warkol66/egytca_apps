@@ -14,8 +14,11 @@ include_once("Action.php");
 require_once("Smarty_config.inc.php");
 
 require_once("BaseQuery.php");
+
 require_once("BaseListAction.php");
 require_once("BaseSelectAction.php");
+require_once("BaseDisplayAction.php");
+
 require_once("BaseDoEditAction.php");
 require_once("BaseDoDeleteAction.php");
 
@@ -63,6 +66,8 @@ class BaseAction extends Action {
 		if($smarty == NULL) {
 			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
 		}
+
+		$this->smarty = $smarty;
 
 		setlocale(LC_ALL, Common::getCurrentLocale());
 		$GLOBALS['_NG_LANGUAGE_'] =& $smarty->language;
