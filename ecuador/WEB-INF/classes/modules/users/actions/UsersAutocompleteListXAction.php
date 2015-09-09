@@ -1,27 +1,28 @@
 <?php
-
-class UsersAutocompleteListXAction extends BaseAction {
-
-	function UsersAutocompleteListXAction() {
-		;
+/**
+ * Listado de usuarios
+ *
+ * @package users
+ */
+class UsersAutocompleteListXAction extends BaseListAction {
+	
+ /**
+	* Constructor
+	*/
+	function __construct() {
+		parent::__construct('User');
 	}
 
-	function execute($mapping, $form, &$request, &$response) {
+ /**
+	* Acciones a ejecutar antes de obtener la coleccion de objetos
+	*/
+	protected function preList() {
+		parent::preList();
 
-    BaseAction::execute($mapping, $form, $request, $response);
+		$this->notPaginated = true;
 
-		$plugInKey = 'SMARTY_PLUGIN';
-		$smarty =& $this->actionServer->getPlugIn($plugInKey);
-		if($smarty == NULL) {
-			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
-		}
-
-		$module = "Users";
-		$smarty->assign("module",$module);
-		
 		$searchString = $_REQUEST['value'];
-		$smarty->assign("searchString",$searchString);
-
+		$this->smarty->assign("searchString",$searchString);
 
 		$filters = array("searchString" => $searchString, "limit" => $_REQUEST['limit']);
 
@@ -44,13 +45,27 @@ class UsersAutocompleteListXAction extends BaseAction {
 		else if ($_REQUEST['campaignId'])
 			$filters = array_merge_recursive($filters, array("relatedObject" => CampaignPeer::get($_REQUEST['campaignId'])));
 
-		$users = BaseQuery::create('User')->applyFilters($filters)->find();
+		$this->filters = $filters;
+		//$smarty->assign("users",$users);
+		$this->smarty->assign("limit",$_REQUEST['limit']);
+		$this->smarty->assign("type",$_REQUEST['type']);
 
-		$smarty->assign("users",$users);
-		$smarty->assign("limit",$_REQUEST['limit']);
-		$smarty->assign("type",$_REQUEST['type']);
 
-		return $mapping->findForwardConfig('success');
+		//Aplico filtro para eleminar el usuario Systems id = -1
+		$this->filters['ignoreNonRealUsers'] = true;
+	}
+
+ /**
+	* Acciones a ejecutar despues de obtener la coleccion de objetos
+	*/
+	protected function postList() {
+		// Elimino el filtro para que no aparezca en el paginador
+		unset($this->filters['ignoreNonRealUsers']);
+		parent::postList();
+		
+		// Listado de usuarios inactivos
+		$this->smarty->assign("inactiveUsers",User::getInactives());
+
 	}
 
 }

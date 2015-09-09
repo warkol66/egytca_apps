@@ -12,22 +12,16 @@ class UsersEditAction extends BaseSelectAction {
 
 	protected function postSelect() {
 		parent::postSelect();
-		
-		$module = "Users";
-		$section = "Users";
-		$this->smarty->assign("module",$module);
-		$this->smarty->assign("section",$section);
-		
-		//Timezones
-		require_once('TimezonePeer.php');
-		$timezonePeer = new TimezonePeer();
-		$this->smarty->assign("timezones",$timezonePeer->getAll());
 
-		$this->smarty->assign("groups",$this->entity->getGroupCandidates());
+		//Timezones
+		$timezonePeer = new TimezonePeer();
+		$this->smarty->assign("timezones", $timezonePeer->getAll());
+
+		$this->smarty->assign("groups", $this->entity->getGroupCandidates());
 
 		$this->smarty->assign("levels",BaseQuery::create("Level")->find());
 
-		$this->smarty->assign("currentUser",$user);
+		$this->smarty->assign("currentUser", $this->entity);
 
 		//Para obtener los grupos de usuario ordenados alfabeticamente
 		//en el template usar $currentUser->getUserGroups($groupCriteria) 
@@ -36,7 +30,6 @@ class UsersEditAction extends BaseSelectAction {
 													->orderByName()
 												->endUse();		
 		$this->smarty->assign("groupCriteria",$groupCriteria);
-	
 		$this->smarty->assign("documentTypes",User::getDocumentTypes());
 
 	}
