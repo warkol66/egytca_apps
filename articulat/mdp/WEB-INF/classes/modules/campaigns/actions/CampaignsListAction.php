@@ -42,7 +42,7 @@ class CampaignsListAction extends BaseAction {
 		$smarty->assign("campaigns",$pager->getResult());
 		$smarty->assign("pager",$pager);
 
-		$url = "Main.php?do=campaignList";
+		$url = "Main.php?do=campaignsList";
 		foreach ($filters as $key => $value)
 			$url .= "&filters[$key]=$value";
 		$smarty->assign("url",$url);
