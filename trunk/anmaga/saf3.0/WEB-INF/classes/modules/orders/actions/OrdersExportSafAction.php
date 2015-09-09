@@ -35,7 +35,7 @@ class OrdersExportSafAction extends BaseAction {
 		$orderPeer = new OrderPeer();
 
 		$idOrders = $_REQUEST["orders"];
-
+		
 		$orders = array();
 		foreach ($idOrders as $id) {
 			$order = OrderPeer::get($id);
@@ -46,8 +46,8 @@ class OrdersExportSafAction extends BaseAction {
 				OrderStateChangePeer::create($id,$userId,$affiliateId,OrderPeer::STATE_EXPORTED,$exportComment);
 			}
 		}
-		$orderItems = OrderItemPeer::getAllByOrders($idOrders);
-		$smarty->assign("orderItems",$orderItems);
+		if(count($idOrders) > 0) 
+			$smarty->assign("orderItems", OrderItemPeer::getAllByOrders($idOrders));
 
 		$smarty->assign("orders",$orders);
 
