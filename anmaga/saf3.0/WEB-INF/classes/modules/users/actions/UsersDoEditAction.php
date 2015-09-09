@@ -69,7 +69,7 @@ class UsersDoEditAction extends BaseAction {
 
 				$userObj->setPasswordString($_POST["pass"]);
 				$userObj->setPasswordUpdatedTime();
-				$userObj->setActiveUser();
+				$userObj->setActive();
 
 				if (empty($_POST["userParams"]["levelId"]))
 					$userObj->setLevelId('3');
