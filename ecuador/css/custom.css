@@ -1138,3 +1138,5 @@ a.dayEventNumber{
 .in_place_editable input {
 	padding: 2px 4px 2px 4px!Important;
 }
+.inplaceEditSize20 {	margin: 32px 44px 52px 64px!Important; font-size:24px;
+}

@@ -1,38 +1,51 @@
 <?php
 /*
-* Filename        : load_config.php
-* @package phpMVCconfig
-*
+ * load_config.php
+ * Carga archivos de configuracion de la aplicacion.
+ * Lo hace a dos niveles, el config.xml que se pued emodificar desde la aplicacion y el config_module
+ * que no se tien eacceso desde al aplicacion
+ * @package config
 */
+
+function loadConfig($xmlFile, $dataFile) {
+	
+	global $appDir;
+	
+	if (!file_exists($xmlFile))
+		echo "No existe $xmlFile";
+	else {
+		
+		if (file_exists($dataFile))
+			$timeData = filemtime($dataFile);
+		else
+			$timeData = 0;
+		
+		$timeXML = filemtime($xmlFile);
+		
+		//Si el XML fue modificado despues de crear el data, tengo que generar el data
+		if ($timeXML > $timeData) {
+			require_once(realpath($appDir . "/WEB-INF/classes/includes/assoc_array2xml.php"));
+			$converter = new assoc_array2xml;
+			$xml = file_get_contents($xmlFile);
+			$configArray = $converter->xml2array($xml);
+			file_put_contents($dataFile,serialize($configArray));
+		}
+		
+		$data = file_get_contents($dataFile);
+		return unserialize($data);
+	}
+}
+
 global $appDir;
 
-$xmlFile					= NULL;	// XML config file
-$xmlData					= NULL;	// Serialized config file
-
 $xmlFile = $appDir . "/config/config.xml";
-$xmlData = $appDir . "/config/config.data";
+$dataFile = $appDir . "/config/config.data";
 
-if (!file_exists($xmlFile))
-	echo "No existe config.xml";
-else {
-	if (file_exists($xmlData))
-		$timeData = filemtime($xmlData);
-	else
-		$timeData = 0;
-	$timeXML = filemtime($xmlFile);
+$system = loadConfig($xmlFile, $dataFile);
 
-	//Si el XML fue modificado despues de crear el data, tengo que generar el data
-	if ($timeXML > $timeData) {
-		require_once(realpath($appDir . "/WEB-INF/classes/includes/assoc_array2xml.php"));
-		$converter = new assoc_array2xml;
-	  $xml = file_get_contents($xmlFile);
-	  $configArray = $converter->xml2array($xml);
-	  file_put_contents($xmlData,serialize($configArray));
-	}
-
-	$data = file_get_contents($xmlData);
-	$system = unserialize($data);
-
+if (file_exists($appDir . "/config/config.local.xml")) {
+	$localConfig = loadConfig($appDir . "/config/config.local.xml", $appDir . "/config/config.local.data");
+	$system = array_replace_recursive($system, $localConfig);
 }
 
 require_once($appDir . "/config/config_module.php");
