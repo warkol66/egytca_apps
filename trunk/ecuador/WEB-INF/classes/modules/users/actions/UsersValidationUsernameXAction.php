@@ -19,21 +19,21 @@ class UsersValidationUsernameXAction extends BaseAction {
 		$module = "Validation";
 		$smarty->assign('module',$module);
 
-		$fieldname = 'userParams[username]';
+		$fieldname = 'params[username]';
 		$exist = 1;
 
-		if ($_POST['userParams']['username'] == $_POST['actualuserParams']['username'])
+		if ($_POST['params']['username'] == $_POST['actualparams']['username'])
 			$exist = 0;
 		else {
-			if (strlen($_POST['userParams']['username']) >= 4) {
-				$usernameExists = UserQuery::create()->findOneByUsername($_POST['userParams']['username']);
+			if (strlen($_POST['params']['username']) >= 4) {
+				$usernameExists = UserQuery::create()->findOneByUsername($_POST['params']['username']);
 				if (!empty($usernameExists))
 					$exist = 1;
 				else if (Common::hasUnifiedUsernames()) {
 					if (class_exists('AffiliateUser'))
-						$affiliateUsernameExists = AffiliateUserQuery::create()->findOneByUsername($_POST['userParams']['username']);
+						$affiliateUsernameExists = AffiliateUserQuery::create()->findOneByUsername($_POST['params']['username']);
 					if (class_exists('ClientUser'))
-						$clientUsernameExists = ClientUserQuery::create()->findOneByUsername($_POST['userParams']['username']);
+						$clientUsernameExists = ClientUserQuery::create()->findOneByUsername($_POST['params']['username']);
 					if (empty($affiliateUsernameExists) && empty($clientUsernameExists))
 						$exist = 0;
 				}

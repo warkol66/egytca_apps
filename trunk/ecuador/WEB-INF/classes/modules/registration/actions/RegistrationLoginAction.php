@@ -1,32 +1,26 @@
 <?php
+/**
+ * Muestra formulario de login
+ *
+ * @package    registration
+ */
 
-class RegistrationLoginAction extends BaseAction {
+class RegistrationLoginAction extends BaseDisplayAction {
 
-	function RegistrationLoginAction() {
-		;
+	function __construct() {
+		parent::__construct();
+		$this->module = "Registration";
 	}
 
-	function execute($mapping, $form, &$request, &$response) {
+	protected function preDisplay() {
+		parent::preDisplay();
+		// Use a different template si no es usuario administrativo
+		if (!isset($_SESSION["login_user"]))
+			$this->template->template = "TemplatePublic.tpl";
+	}
 
-		BaseAction::execute($mapping, $form, $request, $response);
-
-		$plugInKey = 'SMARTY_PLUGIN';
-		$smarty =& $this->actionServer->getPlugIn($plugInKey);
-		if($smarty == NULL) {
-			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
-		}
-
-			/**
-			* Use a different template si no es usuario administrativo
-			*/
-			if (!isset($_SESSION["login_user"]))
-				$this->template->template = "TemplatePublic.tpl";
-
-		$module = "Registration";
-
-			$smarty->assign("message",$_GET["message"]);
-
-		return $mapping->findForwardConfig('success');
+	protected function postDisplay() {
+		parent::postDisplay();
 	}
 
 }

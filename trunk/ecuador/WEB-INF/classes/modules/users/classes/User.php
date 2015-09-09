@@ -7,6 +7,8 @@
  *
  * @package    users
  */
+//->Propel2 use Base\User as BaseUser;
+
 class User extends BaseUser {
 
 	private $passwordString;
@@ -73,7 +75,7 @@ class User extends BaseUser {
 	*
 	* @returns todos los grupos.
 	*/
-	public function getGroups() {
+/*	public function getGroups() {
 
 		$criteria = UserGroupQuery::create()
 													->useGroupQuery()
@@ -83,7 +85,7 @@ class User extends BaseUser {
 		return $allGroups;
 
 	}
-
+*/
  /**
 	* Indica si un usuario forma parte de un grupo
 	*
@@ -103,7 +105,7 @@ class User extends BaseUser {
  /**
 	* Indica si un usuario forma parte del grupo supervisor
 	*
-	* @returns true si pertenece al grupo, de lo contrario, false.
+	* @returns true si pertenece al grupo, de lo cfontrario, false.
 	*/
 	public function isSupervisor() {
 		if ($this->getLevelId() == 1)
@@ -266,10 +268,10 @@ class User extends BaseUser {
 	* Devuelve el nivel del usuario.
 	* @return propel Obje Level
 	*/
-	public function getLevel() {
+/*	public function getLevel() {
 		return LevelQuery::create()->findOneById($this->getLevelId());
 	}
-
+*/
 
  /**
 	* Obtiene el ID de afiliado por compatibilidad ocn otros tipos de usuario
@@ -325,6 +327,29 @@ class User extends BaseUser {
 					unset($_SESSION['firstLogin']);
 				return $user;
 			}
+		}
+		return false;
+	}
+
+	/**
+	* Autentica a un usuario supervisor como otro usuario (su = substitute user).
+	*
+	* @param string $username Nombre de usuario
+	* @param string $supervisorUser Usuario supervisor
+	* @return User object Objeto usuario, false si no fue exitosa la sustitucion
+	*/
+	public static function su($username,$supervisorUser) {
+		$user = UserQuery::create()->ignoreNonRealUsers()->filterByActive(1)->findOneByUsername($username);
+		if (!empty($user)) {
+			$_SESSION['supervisorUser'] = $supervisorUser;
+			$_SESSION['lastLogin'] = $user->getLastLogin();
+			$user->setLastLogin(time());
+			$user->save();
+			if (is_null($user->getPasswordUpdated()) && ConfigModule::get("users","forceFirstPasswordChange"))
+				$_SESSION['firstLogin'] = User::FIRST_LOGIN;
+			else
+				unset($_SESSION['firstLogin']);
+			return $user;
 		}
 		return false;
 	}
@@ -544,7 +569,7 @@ class User extends BaseUser {
 
 	function getParentsCategories() {
 		if ($this->isAdmin() || $this->isSupervisor())
-			return CategoryPeer::getAllParentsByModule($module);
+			return Category::getAllParentsByModule($module);
 
 		$sql = "SELECT ".CategoryPeer::TABLE_NAME.".* FROM ".UserGroupPeer::TABLE_NAME ." ,".
 						GroupCategoryPeer::TABLE_NAME .", ".CategoryPeer::TABLE_NAME .
@@ -604,7 +629,7 @@ class User extends BaseUser {
 
 	function getCategoriesByModule($module){
 		if ($this->isAdmin() || $this->isSupervisor())
-			return CategoryPeer::getAllByModule($module);
+			return Category::getAllByModule($module);
 
 		$sql = "SELECT ".CategoryPeer::TABLE_NAME.".* FROM ".UserGroupPeer::TABLE_NAME ." ,".
 						GroupCategoryPeer::TABLE_NAME .", ".CategoryPeer::TABLE_NAME .
@@ -622,7 +647,7 @@ class User extends BaseUser {
 
 	function getParentCategoriesByModule($module){
 		if ($this->isAdmin() || $this->isSupervisor())
-			return CategoryPeer::getAllParentsByModule($module);
+			return Category::getAllParentsByModule($module);
 
 		$sql = "SELECT ".CategoryPeer::TABLE_NAME.".* FROM ".UserGroupPeer::TABLE_NAME ." ,".
 						GroupCategoryPeer::TABLE_NAME .", ".CategoryPeer::TABLE_NAME .
@@ -641,7 +666,7 @@ class User extends BaseUser {
 
 	function getChildrenCategories($categoryId) {
 		if ($this->isAdmin() || $this->isSupervisor())
-			return CategoryPeer::getAllParentsByModule($module);
+			return Category::getAllParentsByModule($module);
 
 		$sql = "SELECT ".CategoryPeer::TABLE_NAME.".* FROM ".UserGroupPeer::TABLE_NAME ." ,".
 						GroupCategoryPeer::TABLE_NAME .", ".CategoryPeer::TABLE_NAME .

@@ -1,47 +1,31 @@
 <?php
-
-class UsersEditInfoAction extends BaseAction {
-
-	function UsersEditInfoAction() {
-		;
+/**
+ * Edicion de datos del usuario por el mismo usuario
+ *
+ * @package users
+ */
+class UsersEditInfoAction extends BaseDisplayAction {
+	
+	function __construct() {
+		parent::__construct();
 	}
 
-	function execute($mapping, $form, &$request, &$response) {
+	protected function preDisplay() {
+		parent::preDisplay();
 
-		BaseAction::execute($mapping, $form, $request, $response);
-
-		//////////
-		// Access the Smarty PlugIn instance
-		// Note the reference "=&"
-		$plugInKey = 'SMARTY_PLUGIN';
-		$smarty =& $this->actionServer->getPlugIn($plugInKey);
-		if($smarty == NULL) {
-			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
-		}
-
-		$module = "Users";
-		$section = "Users";
-		$smarty->assign("module",$module);
-		$smarty->assign("section",$section);
-
-		//timezone
-		require_once('TimezonePeer.php');
-		$timezonePeer = new TimezonePeer();
-		$timezones = $timezonePeer->getAll();
-		
-		$smarty->assign("timezones",$timezones);
-
-		$smarty->assign("message",$_GET["message"]);
-
-		$smarty->assign("currentUser",Common::getLoggedUser());
-		$smarty->assign("editInfo",true);
-
-		$smarty->assign("filters",$_GET["filters"]);
-		$smarty->assign("page",$_GET["page"]);
+		$this->smarty->assign("user", Common::getLoggedUser());
 
 		$this->template->template = "TemplatePublic.tpl";
+		$module = "Users";
+		$section = "Users";
+		$this->smarty->assign("module", $module);
+		$this->smarty->assign("section", $section);
 
-		return $mapping->findForwardConfig('success');
+		$this->smarty->assign("editInfo", true);
+		
+		//Timezones
+		$timezonePeer = new TimezonePeer();
+		$this->smarty->assign("timezones", $timezonePeer->getAll());
 
 	}
 

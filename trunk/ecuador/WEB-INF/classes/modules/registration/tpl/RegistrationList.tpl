@@ -44,7 +44,7 @@
 		<th>&nbsp;</th>
 	</tr>
 	</thead>
-
+<tbody>
     |-if $registrationUserColl|@count eq 0-|
     <tr>
         <td colspan="7">|-if isset($filters)-|No hay usuarios que concuerden con la búsqueda|-else-|No hay usuarios disponibles|-/if-|</td>
@@ -74,8 +74,10 @@
 		</tr>							
 	|-/if-|
     |-/if-|
+		</tbody>
+		<tfoot>
 	<tr>
 		<th colspan="7" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=registrationEdit" class="addLink">Crear Nuevo Usuario</a></div></th>
-	</tr>
+	</tr></tfoot>
 </table>
 	
