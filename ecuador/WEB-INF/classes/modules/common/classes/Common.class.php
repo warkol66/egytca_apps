@@ -282,17 +282,17 @@ class Common {
 	* @return obj $user con el objeto logueado de la session
 	*/
 	public static function authenticateByUserAndMail($username,$email) {
-		if (class_exists('UserQuery')){
+		if (class_exists('UserQuery')) {
 			$user = BaseQuery::create('User')->searchByUsernameAndMail($username,$email)->findOne();
 			if (!empty($user))
 				return $user;
 		}
-		if (class_exists('AffiliateUserQuery')){
+		if (class_exists('AffiliateUserQuery')) {
 			$user = BaseQuery::create('AffiliateUser')->searchByUsernameAndMail($username,$email)->findOne();
 			if (!empty($user))
 				return $user;
 		}
-		if (class_exists('ClientUserQuery')){
+		if (class_exists('ClientUserQuery')) {
 			$user = BaseQuery::create('ClientUser')->searchByUsernameAndMail($username,$email)->findOne();
 			if (!empty($user))
 				return $user;
@@ -1075,7 +1075,8 @@ class Common {
 
 	/**
 	* Encripta md5
-	* @return string encriptado
+	* @param string $string string a encriptar
+	* @return string encriptado mas sufijo
 	*/
 	public static function md5($string) {
 		$crypt = md5($string."ASD");
@@ -1402,7 +1403,6 @@ class Common {
 			if (!file_exists($dirAfter)) {
 				mkdir($dirAfter);
 				if (!file_exists($dirAfter)) {
-					return "No exists";
 					$msg = "el directorio $path no existe. creacion automatica fallo: no se puede escribir en $dirBefore, verifique permisos";
 					throw new Exception($msg);
 				}
@@ -1410,7 +1410,6 @@ class Common {
 			$dirBefore = $dirAfter;
 		}
 		if (!Common::isWritable($dirBefore)) {
-			return "No writeable";
 			throw new Exception("no se puede escribir en $dirBefore, verifique permisos");
 		}
 
@@ -1439,7 +1438,7 @@ class Common {
 
 	}
 
-	/**
+ /**
 	* Guarda una falla al solicitar login
 	*
 	* @param string $username nombre de usuario
@@ -1514,7 +1513,7 @@ class Common {
 		return false;
 	}
 
-	/**
+ /**
 	* Informa si una Ip esta bloquada
 	*
 	* @param string $remoteIp ip de intento fallido de login
@@ -1540,50 +1539,46 @@ class Common {
 			return false;
 	}
 
-	/**
+ /**
 	* Informa si se bloqua un usuario por fallas de login
 	*
-	* @param propelObject $userObject usuario
+	* @param string $objectType tipo de usuario intento fallido de login
+	* @param string $objectId id de usuario fallido de login
 	* @return true si bloqueo el usuario, false si no lo bloqueo
 	*/
-	public static function checkLoginUserFailures($userObject) {
+	public static function checkLoginUserFailures($objectType, $objectId) {
 
-		if (is_object($userObject)) {
-			$loginFailureThreshold = ConfigModule::get("global","loginFailureThreshold");
-			$loginFailureThresholdTime = ConfigModule::get("global","loginFailureThresholdTime");
-			$loginFailureBlockedTimeTime = ConfigModule::get("global","loginFailureBlockedTimeTime");
-			
-			$min = new DateTime();
-			$min->modify("-$loginFailureThresholdTime minutes");
-			$loginFailureThresholdTimeArray = array('min' => $min->format('Y-m-d H:i:s'));
-			
-			$objectType = get_class($userObject);
-			$objectId = $userObject->getId();
-			
-			$userLoginFailures = LoginFailureQuery::create()
-					->filterByObjecttype($objectType)->filterByObjectid($objectId)
-					->filterByAttemptat($loginFailureThresholdTimeArray)->count();
-					
-			$remoteIp = Common::getIp();
-					
-			$ipLoginFailures = LoginFailureQuery::create()
-					->filterByIp($remoteIp)
-					->filterByAttemptat($loginFailureThresholdTimeArray)->count();
-					
-			if ($userLoginFailures > $loginFailureThreshold) {
-				try {
-					Common::blockUser($objectType, $objectId);
-					$blockedUser = new BlockedUser();
-					$blockedUser->setObjecttype($objectType);
-					$blockedUser->setObjectid($objectId);
-					$blockedUser->setUnblocked(false);
-					$blockedUser->save();
-					return true;
-				}
-				catch (PropelException $exp) {
-					if (ConfigModule::get("global","showPropelExceptions"))
-						print_r($exp->getMessage());
-				}
+		$loginFailureThreshold = ConfigModule::get("users","loginFailureThreshold");
+		$loginFailureThresholdTime = ConfigModule::get("users","loginFailureThresholdTime");
+		$loginFailureBlockedTimeTime = ConfigModule::get("users","loginFailureBlockedTimeTime");
+		
+		$loginFailureThresholdTimeArray = array('min' => time() - ($loginFailureThresholdTime * 60));
+		
+		$userLoginFailures = LoginFailureQuery::create()
+				->filterByObjecttype($objectType)->filterByObjectid($objectId)
+				->filterByAttemptat($loginFailureThresholdTimeArray)->count();
+				
+		$remoteIp = Common::getIp();
+				
+		$ipLoginFailures = LoginFailureQuery::create()
+				->filterByIp($remoteIp)
+				->filterByAttemptat($loginFailureThresholdTimeArray)->count();
+				
+		//return $userLoginFailures;
+
+		if ($userLoginFailures > $loginFailureThreshold) {
+			try {
+				Common::blockUser($objectType, $objectId);
+				$blockedUser = new BlockedUser();
+				$blockedUser->setObjecttype($objectType);
+				$blockedUser->setObjectid($objectId);
+				$blockedUser->setUnblocked(false);
+				$blockedUser->save();
+				return true;
+			}
+			catch (PropelException $exp) {
+				if (ConfigModule::get("global","showPropelExceptions"))
+					print_r($exp->getMessage());
 			}
 		}
 		return false;
@@ -1770,6 +1765,65 @@ class Common {
 		$lastDay          = date('Y-m-d',$lastDayTimeStamp);			// Find last day of the month
 		$arrDay           = array("first" => $firstDay, "last" => $lastDay);	// return the result in an array format.
 		return $arrDay;
+	}
+
+	/**
+	* Devuelve un array con la hora de inicio y fin de un dia en GMT-0 
+	* para usarse en la base de datos
+	*
+	* @param string $anyDate fecha de referencia en formato yyyy-mm-dd H:i:s (debe estar dado con horario del usuario)
+	* @return arry valores from y to correspondientes a la primera y ultima hora del dia 
+	*/
+	public static function findFirstAndLastTimes($anyDate){
+		list($yr,$mn,$dt) = explode('-',$anyDate);				// separate year, month and date
+		$timeStamp = mktime(0,0,0,$mn,$dt,$yr);
+		$from = Common::getDatetimeOnGMT(date('Y-m-d H:i:s', $timeStamp));
+		$timeStamp = mktime(23,59,59,$mn,$dt,$yr);
+		$to = Common::getDatetimeOnGMT(date('Y-m-d H:i:s', $timeStamp));
+		
+		$arrTime = array('from' => $from, 'to' => $to);
+		return $arrTime;
+	}
+
+	/**
+	 * Devuelve la zona horaria del usuario/la aplicacion
+	 * @param string datetime
+	 * @return string datetime en la zona horaria GMT
+	 */
+	public static function getCurrentTimezone() {
+		require_once('TimezonePeer.php');
+
+		$user = Common::getLoggedUser();
+		$method = "getTimezone";
+
+		if (method_exists($user,$method))
+			$timezoneCode = $user->getTimezone();
+			
+		//return $timezoneCode;
+
+		if (empty($timezoneCode) || $timezoneCode == "") {
+			//si no hubiera o no fuera un usuario administrador tomamos default de la aplicacion
+			global $system;
+			$timezoneCode = $system["config"]["system"]["parameters"]["applicationTimeZoneGMT"]["value"];
+			if ($timezoneCode == null)
+				$timezoneCode = 0;
+		}
+
+		return $timezoneCode;
+	}
+
+ /**
+	* Obtiene el nombre de un modulo a partir del nombre del action
+	*
+	* @param $action string con nombre de la accion solicitada
+	* @return string con nombre del modulo solicitado
+	*/
+	public static function getModuleFromActionName($action) {
+		if (preg_match('/^([a-z]*)[A-Z]/',lcfirst($action),$regs))
+			$moduleRequested = $regs[1];
+		if (empty($moduleRequested) && $action == "js")
+			$moduleRequested = "common";
+		return ucfirst($moduleRequested);
 	}
 
 } // end of class
