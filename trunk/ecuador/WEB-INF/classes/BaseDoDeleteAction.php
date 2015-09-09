@@ -15,6 +15,7 @@ class BaseDoDeleteAction extends BaseAction {
 	protected $ajaxTemplate;
 	protected $params;
 	protected $filters;
+	protected $actionLog;
 	protected $page;
 	protected $forwardName = "success";
 	protected $forwardFailureName = "failure";
@@ -70,7 +71,12 @@ class BaseDoDeleteAction extends BaseAction {
 		}
         
 		try {
+
 			$this->entity->delete();
+			$action = 'delete';
+			$logSufix = ', ' . Common::getTranslation('action: '.$action, 'common');
+			if ($this->actionLog && method_exists($this->entity, 'getLogData'))
+				Common::doLog('success', $this->entity->getLogData() . $logSufix);
 
 			// Acciones a ejecutar despues de eliminar el objeto
 			$this->postDelete();
